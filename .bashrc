@@ -28,5 +28,4 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
-export MY_VULTRIP=95.179.226.76
 set -o vi
