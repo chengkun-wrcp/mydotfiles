@@ -1,0 +1,5 @@
+vim     ~/.vim/vimrc
+vifm    ~/.config/vifm/vifmrc 
+alacritty   ~/.config/alacritty/alacritty.yml
+spectrwm    ~/.config/spectrwm/spectrwm.conf
+spectrwmbar ~/.config/spectrwm/baraction2.sh

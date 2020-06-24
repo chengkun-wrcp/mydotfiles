@@ -1,0 +1,20 @@
+#!/bin/bash
+set -e
+# [ -z $1 ] && echo arguments needed && exit
+# ${var:?message} dispaly error message if empty,  ${var?message} display error message if Unset, exit automatically when error
+file=${1:?"Arguments needed!"}
+[ ! -r $file ] && echo "can't read file:" $file && exit
+# dir=${2:-./}
+
+case $file in
+    *.tar     ) extractcmd="tar -xvf" ;;
+    *.tar.gz  ) extractcmd="tar -zxvf";;
+    *.tar.xz  ) extractcmd="tar -xvJf";;
+    *.tar.bz2 ) extractcmd="tar -xjvf";;
+    *.tar.Z   ) extractcmd="tar -xZvf";;
+    *.zip     ) extractcmd="unzip"    ;;
+    *.gz      ) extractcmd="gzip -d"  ;;
+    *)   echo filetype not supported && exit ;;
+esac
+
+$extractcmd $file
