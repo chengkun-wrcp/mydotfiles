@@ -1,0 +1,552 @@
+""""""""""""""""""""""""""""""""""""""
+" General Settings: "{{{
+" hi vimCommentTitle ctermbg=...
+let mapleader = " "
+set noerrorbells
+" 不要使用vi的键盘模式，使用vim自己的
+set nocompatible
+" 去掉输入错误的提示
+set noeb
+" 告诉我们文件的哪一行被改变过
+set report=0
+" set mouse = n,v,i,a
+set mouse=i
+" 数字默认采用十进制
+set nrformats=
+" esc 有延迟的问题vim --clean 也不行，vim -u NONE 可以
+set timeoutlen=500
+set ttimeoutlen=5
+set clipboard=unnamedplus,exclude:cons\|linux
+
+"}}}
+""""""""""""""""""""""""""""""""""""""
+" 显示设置 "{{{
+" highlight StatusLine ctermfg=59 ctermbg=234
+" 开启语法高亮功能
+syntax enable
+" 允许指定语法高亮配色方案替换默认方案
+syntax on
+set conceallevel=2
+" set concealcursor=nc
+" 开启256色支持，默认是8色
+set t_Co=256
+" 命令行显示输入的命令
+set showcmd
+" 命令行的高度
+set cmdheight=1
+" 命令行显示vim当前模式:e.g. "-- insert --"
+set showmode
+" 总是显示状态栏
+set laststatus=2
+set number relativenumber
+" airline over write the 'ruler' option
+" set ruler
+" 高亮显示当前行/列
+set cursorline
+" set cursorcolumn
+" 字符间插入的像素行数目
+set linespace=2
+" 在被分割的窗口间显示空白，便于阅读
+" set fillchars=vert:\ ,stl:\ ,stlnc:\
+" 高亮显示匹配的括号
+set showmatch
+" 匹配括号高亮的时间（单位是十分之一秒）
+set matchtime=1
+" 光标移动到buffer的顶部和底部时保持3行的距离
+set scrolloff=3
+" set iskeyword+=_,$,@,%,#,-
+" 允许backspace和光标键跨越行边界
+set whichwrap+=<,>,h,l
+"}}}
+""""""""""""""""""""""""""""""""""""""
+" 代码缩进和排版 "{{{
+" 设置自动缩进
+set autoindent
+" 设置使用C/C++语言的自动缩进方式
+set cindent
+" 设置C/C++语言的具体缩进方式
+set cinoptions=g0,:0,N-s,(0
+" 智能的选择对其方式
+set smartindent
+"see help tabstop
+set tabstop=4
+set shiftwidth=4
+set expandtab
+" 在行和段开始处使用制表符
+set smarttab
+" 历史文件中需要记录的行数
+set history=1000
+set nowrap
+set backspace=2
+"}}}
+"""""""""""""""""""""""""""""""""""""
+" 搜索设置 "{{{
+" /搜索结果
+set incsearch
+"set hlsearch
+"set ignorecase
+set magic
+" :find 命令
+" set path+=**
+" set path+=$HOME/.vim
+
+"}}}
+"""""""""""""""""""""""""""""""""""""""
+" 缓存设置 " {{{
+" 关于buffer " When a buffer is unloaded, it is not removed from the buffer list.
+" Only the file contents associated with the buffer are removed from memory.
+" When a buffer is deleted, it is unloaded and removed from the buffer list.
+" reload when file is changed outside vim.
+" 在 :next,...命令时将buffer hidden 而不是 unload
+set hidden
+" set undofile
+" autowrite when go to another buffer
+set autowrite
+set autoread
+" 在处理未保存或只读文件的时候，弹出确认
+" set nobackup
+" set noswapfile
+set confirm
+set viminfo='100,n$HOME/.vim/files/info/viminfo
+"}}}
+""""""""""""""""""""""""""""""""""""""""
+" 其他{{{
+""""""""""""""""""""""""""""""""""""""""
+" indent, syntax, marker
+set foldmethod=syntax
+
+" 代码补全
+" vim自身命名行模式智能补全
+set wildmenu
+" 补全内容不以分割子窗口形式出现，只显示补全列表
+set completeopt-=preview
+
+" 编码设置
+" set langmenu=zh_CN.UTF-8
+" set helplang=cn
+set termencoding=utf-8
+set encoding=utf8
+set fileencodings=utf8,ucs-bom,gbk,cp936,gb2312,gb18030
+"}}}
+""""""""""""""""""""""""""""""""""""""""
+" Plugins: {{{
+""""""""""""""""""""""""""""""""""""""""
+" Vundle {{{
+" Vundle要求关闭文件类型侦测
+filetype off
+
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+Plugin 'VundleVim/Vundle.vim'
+" Plugin 'L9'
+" Plugin 'wsdjeg/FlyGrep.vim'
+Plugin 'godlygeek/tabular'
+" Plugin 'plasticboy/vim-markdown'
+"自动添加括号的另一半
+Plugin 'jiangmiao/auto-pairs'
+Plugin 'scrooloose/nerdtree'
+" Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}    "write html
+" Plugin 'rkulla/pydiction'         "tab complet python
+Plugin 'Valloric/YouCompleteMe'
+"Git集成
+Plugin 'tpope/vim-fugitive'
+"Plugin 'tpope/vim-surround'
+"自动注释
+Plugin 'tpope/vim-commentary'
+"写function时自动加endfunction
+Plugin 'tpope/vim-endwise'
+"查找文件
+" Plugin 'ctrlpvim/ctrlp.vim'
+"
+Plugin 'majutsushi/tagbar'
+Plugin 'octol/vim-cpp-enhanced-highlight'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+" Plugin 'vim-scripts/txt.vim'      "txt 高亮
+"自动显示颜色eg:black red orange yellow green blue purple violet white
+Plugin 'gorodinskiy/vim-coloresque'
+"vim起始页的插件
+Plugin 'mhinz/vim-startify'
+"wolframscript 支持
+Plugin 'voldikss/vim-mma'
+Plugin 'chengkun-wrcp/vim-tex-tools'
+
+call vundle#end()
+filetype plugin indent on
+
+" load vim default plugin
+runtime macros/matchit.vim
+"}}}
+""""""""""""""""""""""""""""""""""""""""
+" nerdtree{{{2
+nnoremap <F3> :NERDTreeToggle<CR>
+"autocmd vimenter * if !argc() | NERDTree | endif
+"autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+let NERDTreeShowHidden=1
+" YCM{{{2
+" let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf.py'
+let g:ycm_confirm_extra_conf = 0
+let g:ycm_error_symbol = '>'
+let g:ycm_warning_symbol = '>'
+let g:ycm_seed_identifiers_with_syntax = 1
+let g:ycm_complete_in_comments = 1
+let g:ycm_complete_in_strings = 1
+let g:ycm_max_num_candidates = 10
+"let g:ycm_cache_omnifunc = 0
+nnoremap <leader>u :YcmCompleter GoToDeclaration<CR>
+nnoremap <leader>i :YcmCompleter GoToDefinition<CR>
+nnoremap <leader>o :YcmCompleter GoToInclude<CR>
+nmap <F5> :YcmDiags<CR>
+" ctags{{{2
+set tags+=/usr/include/tags
+set tags+=~/.vim/systags
+set tags+=~/.vim/x86_64-linux-gnu-systags
+let g:ycm_collect_identifiers_from_tags_files = 1
+" let g:ycm_semantic_triggers = {}
+let g:ycm_semantic_triggers =  {
+            \   'c' : ['->', '.','re![_a-zA-z0-9]'],
+            \   'objc' : ['->', '.', 're!\[[_a-zA-Z]+\w*\s', 're!^\s*[^\W\d]\w*\s',
+            \             're!\[.*\]\s'],
+            \   'ocaml' : ['.', '#'],
+            \   'cpp,objcpp' : ['->', '.', '::','re![_a-zA-Z0-9]'],
+            \   'perl' : ['->'],
+            \   'php' : ['->', '::'],
+            \   'cs,java,javascript,typescript,d,python,perl6,scala,vb,elixir,go' : ['.'],
+            \   'ruby' : ['.', '::'],
+            \   'lua' : ['.', ':'],
+            \   'erlang' : [':'],
+            \ }
+let g:ycm_semantic_triggers.c = ['->', '.', ' ', '(', '[', '&',']']
+
+" a.vim: .h -> .cpp or .cpp -> .h
+nnoremap <silent> <F2> :A<CR>
+" airline{{{2
+" see :h airline-advanced-customization
+let g:airline_exclude_filetypes=["txt"]
+let g:airline_theme="base16"
+" let g:airline_theme="minimalist"
+let g:airline_powerline_fonts = 1
+let g:airline_section_c = '%{strftime("%m/%d %a %H:%M")}'
+"Format String              Example output
+" -------------              --------------
+" %c                         Thu 27 Sep 2007 07:37:42 AM EDT (depends on locale)
+" %a %d %b %Y                Thu 27 Sep 2007
+" %b %d, %Y                  Sep 27, 2007
+" %d/%m/%y %H:%M:%S          27/09/07 07:36:32
+" %H:%M:%S                   07:36:44
+" %T                         07:38:09
+" %m/%d/%y                   09/27/07
+" %y%m%d                     070927
+" %x %X (%Z)                 09/27/2007 08:00:59 AM (EDT)
+" %Y-%m-%d                   2016-11-23
+" %F                         2016-11-23 (works on some systems)
+" RFC822 format:
+" %a, %d %b %Y %H:%M:%S %z   Wed, 29 Aug 2007 02:37:15 -0400
+" ISO8601/W3C format (http://www.w3.org/TR/NOTE-datetime):
+" %FT%T%z                    2007-08-29T02:37:13-0400
+" let g:airline_section_y = 'BN: %{bufnr("%")}'
+" let g:airline#extentions#wordcount#enabled=0
+call airline#parts#define_minwidth('tagbar', 90)
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tabline#left_alt_sep = '|'
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
+" settings filetype
+if expand("%e") == 'txt'
+    let g:airline_section_x = '%{WordCount()}'
+endif
+"markdown{{{2
+let g:vim_markdown_math=1
+" tagbar {{{2
+let g:tagbar_ctags_bin = '/usr/bin/ctags'
+let g:tagbar_width = 30
+nnoremap <F4> :TagbarToggle<CR>
+" imap <F4> <ESC> :TagbarToggle<CR>
+let g:tagbar_type_tex = {
+            \ 'ctagstype' : 'tex',
+            \ 'kinds'     : [
+            \ 's:sections',
+            \ 'g:graphics:0:0',
+            \ 'l:labels',
+            \ 'r:refs:1:0',
+            \ 'p:pagerefs:1:0'
+            \ ],
+            \ 'sort'    : 0,
+            \ }
+
+" colorscheme{{{2
+set background=dark
+colorscheme monokai
+"colorscheme molokai
+hi Normal ctermbg=NONE
+
+" cpp_class_scope_highlight
+let g:cpp_class_scope_highlight = 1
+let g:cpp_experimental_template_highlight = 1
+let c_no_curly_error = 1
+
+
+" ctrlp{{{2
+" let g:ctrlp_map = '<c-f>'
+" let g:ctrlp_cmd = ':CtrlP'
+" let g:ctrlp_working_path_mode = '0'
+" set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
+
+" vim-devicons{{{2
+" set guifont=Droid\ Sans\ Mono\ for\ Powerline\ Nerd\ Font\ Regular\ 14
+" set guifont=Monospace\ Regular\ 12
+
+" pydiction{{{2
+let g:pydiction_location='~/.vim/bundle/pydiction/complete-dict'
+let g:pydiction_menu_height=10
+
+" starify{{{2
+let g:statify_session_autoload=1
+let g:startify_bookmarks=['~/.vim/vimrc']
+
+" mma{{{2
+let g:mma_candy=2
+" let g:mma_highlight_option = "solarized"
+"}}} "}}}
+"""""""""""""""""""""""""""""""""""""""""""""""""""
+" Maps and Commands{{{
+let g:ESC="\<esc>"  "写函数时用起来方便
+nnoremap SB :execute "rightbelow 10split ".bufname("#")<cr>
+nnoremap SA :execute "leftabove 10split ".bufname("#")<cr>
+nnoremap SR :execute "rightbelow vsplit ".bufname("#")<cr>
+nnoremap SL :execute "leftabove vsplit ".bufname("#")<cr>
+nnoremap <C-N> :bn<CR>
+nnoremap <C-P> :bp<CR>
+" repeat last command
+nnoremap <leader>. :<up><cr>
+" inoremap ;; <esc>l;i
+" :h key-notation 看哪些键是等价的;
+" ctrl+l等似乎都没什么用;7(for)[]
+" 自定义map时注意ctrl-/没法定义，<c-i>==tab,<c-[>==esc,<c-m>==enter(<CR>);
+nnoremap <c-l> <C-w>l
+nnoremap <c-h> <C-w>h
+nnoremap <c-j> <C-w>j
+nnoremap <c-k> <C-w>k
+nnoremap \ :w<CR>
+nnoremap <space> :let @9=' '<cr>"9Pl
+nnoremap <cr> :let @9="\n"<cr>"9p
+vnoremap <leader>( :<c-u>execute "normal! `<i(" .g:ESC. "`>la)".g:ESC<cr>
+vnoremap <leader>{ :<c-u>execute "normal! `<i{" .g:ESC. "`>la}".g:ESC<cr>
+vnoremap <leader>[ :<c-u>execute "normal! `<i[" .g:ESC. "`>la]".g:ESC<cr>
+vnoremap <leader>" :<c-u>execute "normal! `<i\"" .g:ESC. "`>la\"".g:ESC<cr>
+vnoremap <leader>' :<c-u>execute "normal! `<i\'" .g:ESC. "`>la\'".g:ESC<cr>
+" vnoremap <C-c> "+y
+command CD cd %:h
+" command! ON
+command Nautilus call system("nautilus ".expand('%:h')." &")
+" 所有的 <F9> 都映射成了编译
+nnoremap <F9> :call Execute_this_file()<cr>
+func Execute_this_file()
+    silent write
+    if expand("%:e") == 'vim' || expand("%:t") == '.vimrc'
+        return	"在本函数时source vimrc会出错
+    endif
+    if expand("%:e") == 'cpp'
+        " exec '!g++ '.expand("%:p").' -std=c++11 -o '.expand("%:p:r")
+        " %:p 展成全路径
+        cd %:h
+        let l:cppcompile='g++ '.expand("%").' -std=c++11 -o '.expand("%:r").' && ./'.expand("%:r")
+        echo l:cppcompile
+        " below call term_start(l:cppcompile,{"term_rows":15})
+        exec 'below term ++rows=10 bash -c "'.l:cppcompile.'"'
+        " below term ++rows=10 bash -c l:cppcompile 不行
+    elseif index(['wls','m'],expand("%:e")) >= 0
+        term wolframscipt
+    elseif index(['sh','awk'],expand("%:e")) >= 0
+        cd %:h
+        " exec '!./'.expand("%")
+        exec 'below term ++rows=15'
+    elseif expand("%:e") == 'tex'
+        call XeCompileTerminal()    "this function is defined in $LATEXPLUGIN
+    else
+        cd %:h
+        exec 'below term ++rows=15'
+    endif
+endfun
+"}}}
+"""""""""""""""""""""""""""""""""""""""""""""""""""
+"autocmds {{{
+func! SetTitle_Initiate() "{{{
+    if expand("%:e") == 'sh'
+        call setline(1,'#!/bin/bash')
+        call setline(2, "set -e")
+        silent write
+        call system("chmod +x ".expand("%:p"))
+    elseif expand("%:e") == 'awk'
+        call setline(1,'#!/usr/bin/awk -f')
+        call append(line("."), "")
+        silent write
+        call system("chmod +x ".expand("%:p"))
+    elseif expand("%:e") == 'wls'
+        call setline(1,'#!/usr/bin/env wolframscript')
+        silent write
+        call system("chmod +x ".expand("%:p"))
+    elseif expand("%:e") == 'py'
+        call setline(1,"#!/usr/bin/env python")
+        call append(line("."),"# coding=utf-8")
+        call append(line(".")+1, "")
+    elseif expand("%:e") == 'cpp'
+        call setline(1,"#include <iostream>")
+        call append(line("."),"using namespace std;")
+    elseif expand("%:e") == 'cc'
+        call setline(1,"#include <iostream>")
+        call append(line("."), "")
+    elseif expand("%:e") == 'c'
+        call setline(1,"#include <stdio.h>")
+        call append(line("."), "")
+    elseif expand("%:e") == 'h'
+        let f_nam = expand('%:s?.*?\U&?:t:r')	" 文件名为 f_nam.h
+        call setline(1, "#endif")
+        call append(0, "")
+        call append(0, "#define _".f_nam."_H")
+        call append(0, "#ifndef _".f_nam."_H")
+        unlet f_nam
+    elseif expand("%:e") == 'hpp'
+        call setline(1, "#pragma once")
+        " elseif expand("%:p") =~ '/home/chengkun/Documents/lab_report/'
+        " exec ":r /home/chengkun/Documents/lab_report/0/0.tex"
+        " normal gg
+    elseif expand("%") == '0.tex'
+        exec ":-1r /home/chengkun/Documents/latex-template/general.tex"
+    endif
+endfunc "}}}
+augroup general_au
+    autocmd!
+    " autocmd BufNewFile *.cpp,*.cc,*.c,*.hpp,*.h,*.sh,*.awk,*.py,*.tex exec ":call SetTitle_Initiate()"
+    autocmd BufNewFile * call SetTitle_Initiate()
+    " open at last changed position
+    autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+    autocmd InsertLeave * call system("fcitx-remote -c")
+    " autocmd BufRead *
+    "             \ if filereadable(expand("%").'.vim') |
+    "             \   exec 'source '.expand("%").'.vim' |
+    "             \ endif
+    "disable any change of folds  while typing
+    autocmd InsertEnter * let w:oldfdm = &l:foldmethod | setlocal foldmethod=manual
+    autocmd InsertLeave *
+                \ if exists('w:oldfdm') |
+                \   let &l:foldmethod = w:oldfdm |
+                \   unlet w:oldfdm |
+                \ endif |
+                \ normal! zv
+augroup END
+augroup filetype_autocmd
+    autocmd!
+    autocmd FileType c,cpp setlocal foldmethod=syntax
+    " autocmd FileType cpp vnoremap<buffer> <Leader>a <C-V>0I//<esc>
+    autocmd FileType c,cpp setlocal commentstring=//%s
+    autocmd FileType c,cpp iabbre<buffer> re return
+    autocmd FileType vim setlocal nowrap textwidth=0 foldmethod=marker	" 为什么不设置的时候会有textwidth = 78 ????
+    autocmd FileType vim nnoremap<buffer> <F9> :source %<cr>
+    autocmd FileType tex nnoremap<buffer> <leader><leader> :call SVED_Sync()<cr>
+    autocmd FileType tex let g:AutoPairs['$']='$'
+    autocmd FileType mma setlocal fdm=manual tabstop=2 shiftwidth=2 expandtab
+    autocmd FileType mma setlocal commentstring=(*%s*)
+    autocmd BufWinLeave *.wls mkview
+    autocmd BufWinEnter *.wls silent loadview
+    " filetype and keywordprogram, for filetype vim kp=:help, others default is man
+    autocmd FileType help setlocal keywordprg=:help
+    autocmd FileType sh setlocal keywordprg=:term\ ++close\ man
+augroup END
+augroup terminal_buffer
+    autocmd!
+    " the default filetype of terminal buffer is ''
+    autocmd TerminalOpen *
+                \ if &buftype == 'terminal' |
+                \   setlocal nobuflisted    |
+                \   setlocal winfixheight   |
+                \ endif
+augroup END
+let $LATEXPLUGIN='~/.vim/ftplugin/tex.vim'
+"}}}
+"""""""""""""""""""""""""""""""""""""""""""""""""""
+" Some Functions:
+function SyntaxRegion()
+    echom synIDattr(synID(line("."), col("."), 1), "name")
+endfun
+function WordCount(...)	"{{{2
+    silent write
+    let Count=0
+    let char0 = ''
+    let text = ''
+    let [ i , N ] = a:0 == 2 ? [a:1,a:2] : [1,line("$")]
+
+    while i <= N
+        let text = getline(i)
+        let i=i+1
+        for char in split(text,'\zs')
+            if char == '%' && char0 != '\'
+                break
+            elseif char2nr(char)>=0x2000
+                let Count += 1
+            endif
+            let char0=char
+        endfor
+    endwhile
+    return Count."字"
+endfunc
+command -range WordCount echo WordCount(<line1>,<line2>)
+" give wordcount of current line, use %WordCount to set range as whole file
+"" MultiInsert: {{{1
+"let b:MarkerPos=[]
+"nnoremap <leader>m :call MultiInsertSetMarker()<cr>
+"function! PositionCompare(p1,p2) "{{{2
+"	if a:p1[1]==a:p2[1]
+"		return a:p1[2]-a:p2[2]
+"	else
+"		return a:p1[1]-a:p2[1]
+"	endif
+"endfun
+"function! MultiInsertSetMarker(...) "{{{2
+"	if a:0 == 0
+"		let b:MarkerPos=add(b:MarkerPos,getpos('.'))
+"	else
+"		let b:MarkerPos += a:000
+"	endif
+"endfun
+"function! MultiInsertBegin() "{{{2
+"	if len(b:MarkerPos)<=1
+"		return ''
+"	endif
+"	" echom "MultiInsert Begin record"
+"	if type(b:MarkerPos[0])==v:t_list
+"		call setpos('.',b:MarkerPos[0])
+"	endif
+"	exec 'normal! qq'
+"	unlet b:MarkerPos[0]
+"	let b:MarkerPos=reverse(sort(b:MarkerPos,"PositionCompare"))
+"	let v:char='move'
+"	return ''
+"endfun
+"function! MultiInsertEnd() "{{{2
+"	if len(b:MarkerPos)==0 || type(b:MarkerPos[0])!=v:t_list
+"		return ''
+"	endif
+"	" echom "MultiInsert End record"
+"	exec 'normal! q'
+"	let @q='i'.@q
+"	for pos in b:MarkerPos
+"		call setpos('.',pos)
+"		exec 'normal! @q'
+"	endfor
+"	let b:MarkerPos=[]
+"	return ''
+"endfun
+"augroup multi_insert "{{{2
+"	autocmd!
+"	autocmd InsertEnter * call MultiInsertBegin()
+"	autocmd InsertLeave * call MultiInsertEnd()
+"augroup End
+
+""}}}

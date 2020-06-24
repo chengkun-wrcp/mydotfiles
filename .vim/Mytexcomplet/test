@@ -1,0 +1,11 @@
+ap
+\begin{table}[h]
+\caption{\label{tab:~}%
+	~}
+	\begin{ruledtabular}
+	\begin{tabular}{ll}
+	& \\
+		& \\
+		\end{tabular}
+		\end{ruledtabular}
+		\end{table}

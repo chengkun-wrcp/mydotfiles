@@ -1,0 +1,29 @@
+" vim:filetype=vifm
+" dark : 232
+" light :235
+
+highlight clear
+
+highlight Win             cterm=none ctermfg=default    ctermbg=none
+
+highlight TabLine         cterm=none ctermfg=67    ctermbg=none
+highlight TopLine         cterm=none ctermfg=blue       ctermbg=237
+highlight TopLineSel      cterm=none ctermfg=blue       ctermbg=237
+highlight StatusLine      cterm=none ctermfg=blue       ctermbg=237
+highlight Border          cterm=none ctermfg=blue       ctermbg=237
+
+highlight Selected        cterm=bold ctermfg=red    ctermbg=default
+highlight CurrLine        cterm=bold ctermfg=232    ctermbg=69
+highlight TabLineSel      cterm=bold ctermfg=232    ctermbg=69
+
+highlight WildMenu        cterm=underline,reverse ctermfg=white ctermbg=none
+highlight CmdLine         cterm=none ctermfg=white ctermbg=none
+highlight ErrorMsg        cterm=none ctermfg=red ctermbg=none
+
+highlight Directory       cterm=none ctermfg=blue ctermbg=default
+highlight Link            cterm=none ctermfg=yellow ctermbg=default
+highlight BrokenLink      cterm=none ctermfg=red ctermbg=default
+highlight Socket          cterm=none ctermfg=yellow ctermbg=default
+highlight Device          cterm=none ctermfg=yellow ctermbg=default
+highlight Fifo            cterm=none ctermfg=yellow ctermbg=default
+highlight Executable      cterm=none ctermfg=green ctermbg=default

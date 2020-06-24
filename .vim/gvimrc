@@ -1,0 +1,33 @@
+" see :help gvimrcaaaa
+" 禁止显示菜单和工具条
+set guioptions-=T
+set guioptions-=m
+" 禁止显示滚动条
+set guioptions-=l
+set guioptions-=L
+set guioptions-=r
+set guioptions-=R
+" 字符间插入的像素行数目
+set linespace=1
+" set guifont=Droid\ Sans\ Mono\ for\ Powerline\ Nerd\ Font\ Regular\ 14
+colorscheme monokai_changed
+set guicursor=n-v-c:block-Cursor/lCursor,ve:ver35-Cursor,o:hor50-Cursor,i-ci:block-Cursor/lCursor,r-cr:hor20-Cursor/lCursor,sm:block-Cursor-blinkwait175-blinkoff150-blinkon175
+"{{{
+" alt + hjkl
+" nnoremap ì <C-w>l
+" nnoremap è <C-w>h
+" nnoremap ê <C-w>j
+" nnoremap ë <C-w>k
+"}}}
+" Lab Report {{{
+if expand('%:p:h') =~ 'lab_report'
+    inoremap<buffer> 。 ．
+endif
+augroup lab_report
+    let s:Lab_Path = "/home/chengkun/Documents/lab_report"
+    " 写实验报告时的tex
+    autocmd!
+    autocmd BufNewFile /home/chengkun/Documents/lab_report/*/0.tex exec ":r ".s:Lab_Path."/0/0.tex"
+    " autocmd InsertLeave *.tex <c-[>
+augroup END
+"}}}
