@@ -1,0 +1,34 @@
+#!/bin/bash
+set -e
+checkevent() {
+    i=0
+    while read grepout; do
+        i=$(($i+1))
+        [ $i == 1 ] && printf "\ntype number to delete the following event or type enter to add event:\n"
+        match[$i]=grepout
+        echo $grepout
+    done
+    [ $i == 0 ] && return 0
+    # 从terminal read，而不从pipe
+    read nn < /dev/tty
+    [ -z $nn ] && return 0
+    # sed -i : edit the file
+    sed -i "$nn"d $file
+    # return 0后sript后面的命令还会运行，return 1就不运行了
+    return 1
+}
+
+file=$HOME/.local/my.todo
+[ ! -e $file ] && touch $file
+
+echo TODO list:
+awk '{print "  "NR":",$0}' $file
+echo END
+
+[ -z $1 ] && exit
+
+event=$@
+grep -ni $1 $file | checkevent
+
+echo $event>>$file
+echo add $event to TODO list

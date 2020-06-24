@@ -1,0 +1,32 @@
+#!/bin/bash
+help() {
+    echo Usage:
+    echo -e "\t" v2ray help
+    # echo -e "\t" v2ray config : edit config.json
+    echo -e "\t" v2ray start : start the v2ray service
+    echo -e "\t" v2ray restart : start the v2ray service
+    echo -e "\t" v2ray stop : stop the v2ray service
+    echo -e "\t" v2ray status : show status
+    echo -e "\t" v2ray config : config v2ray
+    echo -e "\t" v2ray proxy : change system proxy
+}
+
+if [ $# == 0 ];then
+    help
+elif [ $1 == "help" ];then
+    help
+elif [ $1 == "status" ];then
+    systemctl status v2ray.service
+elif [ $1 == "start" ];then
+    systemctl start v2ray.service
+elif [ $1 == "restart" ];then
+    systemctl restart v2ray.service
+elif [ $1 == "stop" ];then
+    systemctl stop v2ray.service
+elif [ $1 == "config" ];then
+    sudo vim /etc/v2ray/config.json
+    sudo systemctl restart v2ray.service
+# elif [ $1 == "proxy" ];then
+else
+    help
+fi
