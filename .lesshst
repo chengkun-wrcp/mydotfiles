@@ -1,8 +1,5 @@
 .less-history-file:
 .search
-"bar
-"black
-"white
 "brigh
 "contract
 "cont
@@ -99,5 +96,8 @@
 "config
 "-u
 "config
-.search
 "history
+"color
+.search
+"config
+"latexmkrc

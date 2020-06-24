@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e
-program=`awk '{print $1}' $HOME/.local/bin/config.txt | dmenu.sh -p "choose the program to config"`
-filepath=`awk -v pro=$program '$1==pro {print $2}' $HOME/.local/bin/config.txt`
+# this file lists some programs and the locations of their config file
+locations=$HOME/.config/config.txt
+program=`awk '{print $1}' $locations | dmenu.sh -p "choose the program to config"`
+filepath=`awk -v pro=$program '$1==pro {print $2}' $locations`
 # change ~ to full path
 vim ${filepath/\~/$HOME}

@@ -1,6 +1,8 @@
 #!/bin/bash
-program=`awk '{print $1}' $HOME/.local/bin/config.txt | dmenu.sh -p "choose the program to config"`
+# this script is used for key bindings instead of in a terminal
+locations=$HOME/.config/config.txt
+program=`awk '{print $1}' $locations | dmenu.sh -p "choose the program to config"`
 [ -z $program ] && exit
-filepath=`awk -v pro=$program '$1==pro {print $2}' $HOME/.local/bin/config.txt`
+filepath=`awk -v pro=$program '$1==pro {print $2}' $locations`
 # change ~ to full path
 alacritty -e vim ${filepath/\~/$HOME}
