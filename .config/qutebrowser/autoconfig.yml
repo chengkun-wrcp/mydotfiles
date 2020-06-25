@@ -7,4 +7,6 @@
 config_version: 2
 settings:
   content.proxy:
-    global: none
+    global: system
+  tabs.position:
+    global: top

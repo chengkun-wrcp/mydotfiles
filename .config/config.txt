@@ -1,7 +1,11 @@
-config  ~/.config/config.txt
-vim     ~/.vim/vimrc
-vifm    ~/.config/vifm/vifmrc 
+# vim:ft=config
+
+# files that I often config
+config      ~/.config/config.txt
+alias       ~/.config/shell_aliases
 alacritty   ~/.config/alacritty/alacritty.yml
+vim         ~/.vim/vimrc
+vifm        ~/.config/vifm/vifmrc
 spectrwm    ~/.config/spectrwm/spectrwm.conf
 spectrwmbar ~/.config/spectrwm/baraction2.sh
 git-dotfile ~/Documents/home.git/info/exclude

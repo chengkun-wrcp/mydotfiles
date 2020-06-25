@@ -139,13 +139,11 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 " Plugin 'L9'
-" Plugin 'wsdjeg/FlyGrep.vim'
 Plugin 'godlygeek/tabular'
 " Plugin 'plasticboy/vim-markdown'
 "自动添加括号的另一半
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'scrooloose/nerdtree'
-" Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}    "write html
 " Plugin 'rkulla/pydiction'         "tab complet python
 Plugin 'Valloric/YouCompleteMe'
 "Git集成
@@ -298,9 +296,9 @@ let c_no_curly_error = 1
 " let g:ctrlp_working_path_mode = '0'
 " set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
 
-" vim-devicons{{{2
-" set guifont=Droid\ Sans\ Mono\ for\ Powerline\ Nerd\ Font\ Regular\ 14
-" set guifont=Monospace\ Regular\ 12
+" vim-endwise{{{2
+nmap o A<cr>
+" so that endwise function will also be called when press o
 
 " pydiction{{{2
 let g:pydiction_location='~/.vim/bundle/pydiction/complete-dict'

@@ -3,21 +3,10 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-alias ls='ls --color=auto'
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
-alias vifm='vifm .'
-alias pacautoremove='pacman -Rcs $(pacman -Qdtq)'
-alias SD='shutdown now'
-alias git-dotfiles='git --git-dir=$HOME/Documents/home.git --work-tree=$HOME'
-
 # PS1='[\u@\h \W]\$ '
 PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
-fi
+[ -f ~/.config/shell_aliases ] && . ~/.config/shell_aliases
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).

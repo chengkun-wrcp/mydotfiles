@@ -1,8 +1,0 @@
-#!/bin/bash
-# this script is used for key bindings instead of in a terminal
-locations=$HOME/.config/config.txt
-program=`awk '{print $1}' $locations | dmenu.sh -p "choose the program to config"`
-[ -z $program ] && exit
-filepath=`awk -v pro=$program '$1==pro {print $2}' $locations`
-# change ~ to full path
-alacritty -e vim ${filepath/\~/$HOME}
