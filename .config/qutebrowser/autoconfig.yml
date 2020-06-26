@@ -9,10 +9,19 @@ settings:
   content.proxy:
     global: system
   fonts.default_family:
-    global:
-    - DejavuSansMono Nerd Font
-    - HYZhonYuanJ
-    - WenQuanYi Micro Hei Mono
+    global: Ubuntu Mono
+  fonts.web.family.cursive:
+    global: null
+  fonts.web.family.fantasy:
+    global: null
+  fonts.web.family.fixed:
+    global: null
+  fonts.web.family.sans_serif:
+    global: null
+  fonts.web.family.serif:
+    global: null
+  fonts.web.family.standard:
+    global: null
   statusbar.hide:
     global: true
   tabs.position:
