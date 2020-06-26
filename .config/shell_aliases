@@ -3,6 +3,7 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 alias vifm='vifm .'
+# use pacman -Rs and there will be no need for autoremove
 alias pacautoremove='pacman -Rcs $(pacman -Qdtq)'
 alias SD='shutdown now'
 alias git-dotfiles='git --git-dir=$HOME/Documents/home.git --work-tree=$HOME'

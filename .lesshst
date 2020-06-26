@@ -1,9 +1,5 @@
 .less-history-file:
 .search
-"path
-"dir
-"-a
-"-v
 "rec
 "+I
 "\+I
@@ -96,8 +92,12 @@
 "begin
 "-s
 "remove
-.search
 "dmenu
 ".dmenu
 "\.dmenu
 "config
+"add
+"stack
+"times
+.search
+"-z

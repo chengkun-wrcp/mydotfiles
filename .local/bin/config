@@ -2,9 +2,44 @@
 set -e
 # this file lists some programs and the locations of their config file
 locations=$HOME/.config/config.txt
-program=`sed '/^$/ d;/#/ d' $locations | awk '{print $1}' | dmenu.sh -p "choose the program to config"`
-filepath=`awk -v pro=$program '$1==pro {print $2}' $locations`
-# change ~ to full path
-filepath=${filepath/\~/$HOME}
+OPENTERM="FALSE"
+EDITTHIS="FALSE"
+usage()
+{
+    echo "Usage: alphabet [ -options ] program"
+    echo "       -t : open new terminal"
+    echo "       -e : edit this script"
+    echo "       -h : show this message"
+    exit 0
+}
 
-[ $1 == "newterm" ] && alacritty -e vim $filepath || vim $filepath
+PARSED_ARGUMENTS=$(getopt -o et -- "$@")
+# echo "PARSED_ARGUMENTS is $PARSED_ARGUMENTS"
+eval set -- "$PARSED_ARGUMENTS"
+while :
+do
+    case "$1" in
+        -t ) OPENTERM="TRUE"      ; shift   ;;
+        -e ) EDITTHIS="TRUE"       ; shift   ;;
+        # -- means the end of the arguments; drop this, and break out of the while loop
+        --) shift; break ;;
+        # If invalid options were passed, then getopt should have reported an error,
+        # which we checked as VALID_ARGUMENTS when getopt was called...
+        *) echo "Unexpected option: $1 - this should not happen."
+        usage ;;
+esac
+done
+
+# filepath is the location of the file I want to change
+if [ $EDITTHIS == "TRUE" ];then
+    filepath=$HOME/.local/bin/config
+else
+    # program is the program to config
+    program=$@
+    [ -z $program ] && program=`sed '/^$/ d;/#/ d' $locations | awk '{print $1}' | dmenu.sh -p "choose the program to config"`
+    filepath=`awk -v pro=$program '$1==pro {print $2}' $locations`
+    # change ~ to full path
+    filepath=${filepath/\~/$HOME}
+fi
+
+[ $OPENTERM == "TRUE" ] && alacritty -e vim $filepath || vim $filepath

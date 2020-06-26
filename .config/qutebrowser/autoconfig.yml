@@ -8,5 +8,14 @@ config_version: 2
 settings:
   content.proxy:
     global: system
+  fonts.default_family:
+    global:
+    - DejavuSansMono Nerd Font
+    - HYZhonYuanJ
+    - WenQuanYi Micro Hei Mono
+  statusbar.hide:
+    global: true
   tabs.position:
     global: top
+  tabs.show:
+    global: multiple
