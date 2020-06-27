@@ -1,6 +1,6 @@
 #!/bin/bash
 defaultbg=$HOME/arch_layers.png
-maindir=$HOME/media/hddfile/Pictures/Wallpapers/wallpapers
+maindir=$HOME/Pictures/Wallpapers/wallpapers
 lists=({$maindir/*/*.png,$maindir/*/*.jpg})
 # dir1=(/mnt/e/Pictures/Wallpapers/wallpapers/*/)
 # dir2=${dir1[RANDOM % ${#dir1[@]}]}

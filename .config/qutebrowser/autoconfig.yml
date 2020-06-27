@@ -7,9 +7,9 @@
 config_version: 2
 settings:
   content.proxy:
-    global: system
+    global: socks://localhost:1082/
   fonts.default_family:
-    global: Ubuntu Mono
+    global: WenQuanYi Micro Hei Mono
   fonts.web.family.cursive:
     global: null
   fonts.web.family.fantasy:
@@ -23,8 +23,12 @@ settings:
   fonts.web.family.standard:
     global: null
   statusbar.hide:
-    global: true
+    global: false
   tabs.position:
     global: top
   tabs.show:
     global: multiple
+  url.default_page:
+    global: https://www.baidu.com/
+  url.start_pages:
+    global: https://www.baidu.com/

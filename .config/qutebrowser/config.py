@@ -3,8 +3,17 @@
 #   qute://help/configuring.html
 #   qute://help/settings.html
 
-# Uncomment this to still load settings configured via autoconfig.yml
-# config.load_autoconfig()
+# color theme
+import dracula.draw
+# Load existing settings made via :set
+config.load_autoconfig()
+
+dracula.draw.blood(c, {
+    'spacing': {
+        'vertical': 6,
+        'horizontal': 8
+    }
+})
 
 # Which cookies to accept. With QtWebEngine, this setting also controls
 # other features with tracking capabilities similar to those of cookies;
@@ -136,26 +145,21 @@ config.set('content.javascript.enabled', True, 'qute://*/*')
 # Valid values:
 #   - system: Use the system wide proxy.
 #   - none: Don't use any proxy
-c.content.proxy = 'system'
+# check v2ray status when start, if v2ray is off ,use system proxy,else use pac
+import subprocess
+if 'inactive' == subprocess.check_output("systemctl status v2ray | awk '/Active:/ {printf $2}'", shell=True, universal_newlines=True):
+    c.content.proxy = 'system'
+else:
+    c.content.proxy = 'socks://localhost:1082/'
 
-# Position of the tab bar.
-# Type: Position
-# Valid values:
-#   - top
-#   - bottom
-#   - left
-#   - right
-c.tabs.position = 'top'
-c.url.start_pages = ["https://www.baidu.com/"]
-c.fonts.default_family=["DejavuSansMono Nerd Font","HYZhonYuanJ","WenQuanYi Micro Hei Mono"]
+file_handle=open('1.txt',mode='w')
+file_handle.write(str(config.get('fonts.default_family')))
+# config.get only gives default value?????
+# toggle status bar hide and show
+# def statuschange():
+#     if config.get('statusbar.hide') is False:
+#         return 'true'
+#     else:
+#         return 'false'
+config.bind('<Ctrl-b>', 'set-cmd-text -s :set statusbar.hide ')
 
-# color theme
-import dracula.draw
-# Load existing settings made via :set
-config.load_autoconfig()
-dracula.draw.blood(c, {
-    'spacing': {
-        'vertical': 6,
-        'horizontal': 8
-    }
-})

@@ -68,9 +68,9 @@ let s:lightblack  = { "gui": "#2D2E27", "cterm": "235" }
 let s:lightblack2 = { "gui": "#383a3e", "cterm": "236" }
 let s:darkblack   = { "gui": "#211F1C", "cterm": "233" }
 let s:grey        = { "gui": "#8F908A", "cterm": "243" }
-let s:lightgrey   = { "gui": "#575b61", "cterm": "237" }
-let s:darkgrey    = { "gui": "#64645e", "cterm": "239" }
-let s:warmgrey    = { "gui": "#75715E", "cterm": "59" }
+let s:lightgrey   = { "gui": "#575b61", "cterm": "239" }
+let s:darkgrey    = { "gui": "#64645e", "cterm": "240" }
+let s:warmgrey    = { "gui": "#75715E", "cterm": "242" }
 
 let s:pink        = { "gui": "#F92772", "cterm": "197" }
 let s:green       = { "gui": "#A6E22D", "cterm": "148" }

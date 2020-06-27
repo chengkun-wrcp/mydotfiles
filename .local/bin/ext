@@ -14,6 +14,7 @@ case $file in
     *.tar.Z   ) extractcmd="tar -xZvf";;
     *.zip     ) extractcmd="unzip"    ;;
     *.gz      ) extractcmd="gzip -d"  ;;
+    *.rar     ) extractcmd="unrar e"  ;;
     *)   echo filetype not supported && exit ;;
 esac
 

@@ -92,8 +92,8 @@ while :; do
     downicon="+@fn=3; +@fn=0;"
     upicon="+@fn=3; +@fn=0;"
     netstatus=`block 2 0 "$upicon$up_time kb/s $downicon$down_time kb/s"`
-    # check whether v2ray is on
+    # check whether v2ray is onⓥ ☑
     v2ray=`systemctl status v2ray | awk '/Active:/ {print $2}'`
-    [ $v2ray == "active" ] && netstatus=$netstatus"+@fg=6;v+@fg=0;"
+    [ $v2ray == "active" ] && netstatus=$netstatus"+@fg=6;+@fn=1;ⓥ+@fg=0;+@fn=0;"
     echo "$netstatus $(vol) $(bright) $(cpu) $(mem) $(power) $(hdd)"
 done

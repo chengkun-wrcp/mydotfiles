@@ -160,6 +160,7 @@ Plugin 'majutsushi/tagbar'
 Plugin 'octol/vim-cpp-enhanced-highlight'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
+" Plugin 'itchyny/lightline.vim'
 " Plugin 'vim-scripts/txt.vim'      "txt 高亮
 "自动显示颜色eg:black red orange yellow green blue purple violet white
 Plugin 'gorodinskiy/vim-coloresque'
@@ -280,7 +281,7 @@ let g:tagbar_type_tex = {
 
 " colorscheme{{{2
 set background=dark
-colorscheme monokai
+colorscheme monokai_transparent
 "colorscheme molokai
 hi Normal ctermbg=NONE
 
@@ -447,7 +448,8 @@ augroup filetype_autocmd
     autocmd FileType c,cpp iabbre<buffer> re return
     autocmd FileType vim setlocal nowrap textwidth=0 foldmethod=marker	" 为什么不设置的时候会有textwidth = 78 ????
     autocmd FileType vim nnoremap<buffer> <F9> :source %<cr>
-    autocmd FileType tex nnoremap<buffer> <leader><leader> :call SVED_Sync()<cr>
+    " autocmd FileType tex nnoremap<buffer> <leader><leader> :call SVED_Sync()<cr>
+    autocmd FileType tex nnoremap<buffer> <leader><leader> :call SynctaxSearchForward("zathura")<cr>
     autocmd FileType tex let g:AutoPairs['$']='$'
     autocmd FileType mma setlocal fdm=manual tabstop=2 shiftwidth=2 expandtab
     autocmd FileType mma setlocal commentstring=(*%s*)
