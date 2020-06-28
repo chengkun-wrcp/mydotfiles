@@ -7,7 +7,7 @@
 config_version: 2
 settings:
   content.proxy:
-    global: socks://localhost:1082/
+    global: system
   fonts.default_family:
     global: WenQuanYi Micro Hei Mono
   fonts.web.family.cursive:
@@ -23,7 +23,7 @@ settings:
   fonts.web.family.standard:
     global: null
   statusbar.hide:
-    global: false
+    global: true
   tabs.position:
     global: top
   tabs.show:

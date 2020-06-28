@@ -3,7 +3,8 @@
 bindkey -v
 # Enable colors and change prompt:
 autoload -U colors && colors	# Load colors
-PS1="%B%{$fg[green]%}%n@%M %{$fg[blue]%}%~%{$reset_color%}$%b "
+# PS1="%B%{$fg[green]%}%n@%M %{$fg[blue]%}%~%{$reset_color%}$%b "
+PS1="%K{240}%F{195} %~ %F{240}%k %f%b"
 RPS1="%B%{$fg[red]%}%(?..(%?%))%b%{$fg[magenta]%}%T"
 # RPS1="%B%{$fg[red]%}%(?..(%?%))%b%{$fg[magenta]%}%{$bg[magenta]%}%{$fg[black]%}%T"
 setopt autocd		# Automatically cd into typed directory.

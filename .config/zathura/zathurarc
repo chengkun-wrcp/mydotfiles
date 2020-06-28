@@ -25,7 +25,7 @@ set notification-warning-fg     "#db2d20"
 set highlight-color             "#fded02"
 set highlight-active-color      "#01a0e4"
 
-set completion-bg               "#3a3432"
+set completion-bg               "#222020"
 set completion-fg               "#5588ff"
 
 set completion-highlight-bg     "#3355ff"
@@ -46,4 +46,4 @@ set font "WenQuanYi Micro Hei Mono normal 11"
 # synctex
 set synctex true
 # edit vimrc to use the same servername
-set synctex-editor-command "vim --servername NAME --remote-silent +%{line} %{input}"
+set synctex-editor-command "vim --servername TEX --remote-silent +%{line} %{input}"

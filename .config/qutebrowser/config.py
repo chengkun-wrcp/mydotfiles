@@ -152,8 +152,8 @@ if 'inactive' == subprocess.check_output("systemctl status v2ray | awk '/Active:
 else:
     c.content.proxy = 'socks://localhost:1082/'
 
-file_handle=open('1.txt',mode='w')
-file_handle.write(str(config.get('fonts.default_family')))
+# file_handle=open('1.txt',mode='w')
+# file_handle.write(str(config.get('fonts.default_family')))
 # config.get only gives default value?????
 # toggle status bar hide and show
 # def statuschange():
