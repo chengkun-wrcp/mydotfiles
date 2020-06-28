@@ -291,12 +291,14 @@ let g:cpp_experimental_template_highlight = 1
 let c_no_curly_error = 1
 
 
-" ctrlp{{{2
-" let g:ctrlp_map = '<c-f>'
-" let g:ctrlp_cmd = ':CtrlP'
-" let g:ctrlp_working_path_mode = '0'
-" set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
-
+" commentary{{{2
+augroup commentstring
+    autocmd!
+    " comment string of file
+    autocmd FileType c,cpp setlocal commentstring=//%s
+    autocmd FileType vifm setlocal commentstring=\"%s
+    autocmd FileType mma setlocal commentstring=(*%s*)
+augroup END
 " vim-endwise{{{2
 nmap o A<cr>
 " so that endwise function will also be called when press o
@@ -375,7 +377,7 @@ func Execute_this_file()
 endfun
 "}}}
 """""""""""""""""""""""""""""""""""""""""""""""""""
-"autocmds {{{
+" general autocmds {{{
 func! SetTitle_Initiate() "{{{
     if expand("%:e") == 'sh'
         call setline(1,'#!/bin/bash')
@@ -413,24 +415,16 @@ func! SetTitle_Initiate() "{{{
         unlet f_nam
     elseif expand("%:e") == 'hpp'
         call setline(1, "#pragma once")
-        " elseif expand("%:p") =~ '/home/chengkun/Documents/lab_report/'
-        " exec ":r /home/chengkun/Documents/lab_report/0/0.tex"
-        " normal gg
-    elseif expand("%") == '0.tex'
-        exec ":-1r /home/chengkun/Documents/latex-template/general.tex"
+    elseif expand("%:e") == 'tex'
+        exec ":-1r ~/Documents/latex-template/general.tex"
     endif
 endfunc "}}}
 augroup general_au
     autocmd!
-    " autocmd BufNewFile *.cpp,*.cc,*.c,*.hpp,*.h,*.sh,*.awk,*.py,*.tex exec ":call SetTitle_Initiate()"
     autocmd BufNewFile * call SetTitle_Initiate()
     " open at last changed position
     autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
     autocmd InsertLeave * call system("fcitx-remote -c")
-    " autocmd BufRead *
-    "             \ if filereadable(expand("%").'.vim') |
-    "             \   exec 'source '.expand("%").'.vim' |
-    "             \ endif
     "disable any change of folds  while typing
     autocmd InsertEnter * let w:oldfdm = &l:foldmethod | setlocal foldmethod=manual
     autocmd InsertLeave *
@@ -443,16 +437,12 @@ augroup END
 augroup filetype_autocmd
     autocmd!
     autocmd FileType c,cpp setlocal foldmethod=syntax
-    " autocmd FileType cpp vnoremap<buffer> <Leader>a <C-V>0I//<esc>
-    autocmd FileType c,cpp setlocal commentstring=//%s
     autocmd FileType c,cpp iabbre<buffer> re return
     autocmd FileType vim setlocal nowrap textwidth=0 foldmethod=marker	" 为什么不设置的时候会有textwidth = 78 ????
     autocmd FileType vim nnoremap<buffer> <F9> :source %<cr>
-    " autocmd FileType tex nnoremap<buffer> <leader><leader> :call SVED_Sync()<cr>
     autocmd FileType tex nnoremap<buffer> <leader><leader> :call SynctaxSearchForward("zathura")<cr>
     autocmd FileType tex let g:AutoPairs['$']='$'
     autocmd FileType mma setlocal fdm=manual tabstop=2 shiftwidth=2 expandtab
-    autocmd FileType mma setlocal commentstring=(*%s*)
     autocmd BufWinLeave *.wls mkview
     autocmd BufWinEnter *.wls silent loadview
     " filetype and keywordprogram, for filetype vim kp=:help, others default is man
@@ -468,7 +458,7 @@ augroup terminal_buffer
                 \   setlocal winfixheight   |
                 \ endif
 augroup END
-let $LATEXPLUGIN='~/.vim/ftplugin/tex.vim'
+let $LATEXPLUGIN='~/.vim/bundle/vim-tex-tools/ftplugin/tex.vim'
 "}}}
 """""""""""""""""""""""""""""""""""""""""""""""""""
 " Some Functions:{{{
