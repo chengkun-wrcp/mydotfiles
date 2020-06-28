@@ -33,8 +33,11 @@ set completion-highlight-fg     "#f7f7f7"
 
 set index-active-bg             "#6688ff"
 
-set recolor-lightcolor          "#090300"
-set recolor-darkcolor           "#d6d5d4"
+# ^R
+# set recolor-lightcolor          "#4a4543"
+# set recolor-darkcolor           "#d6d5d4"
+set recolor-lightcolor          "#c7edcc"
+set recolor-darkcolor           "#000000"
 
 set recolor                     "false"
 set recolor-keephue             "false"
