@@ -5,6 +5,6 @@ if [ -d "$HOME/.local/bin" ] ; then
 fi
 
 # use vim for manual page
-export MANPAGER="/bin/sh -c \"col -b | vim --not-a-term -c 'set ft=man ts=8 nonu norno nomod nolist nobl noma' -\""
+export MANPAGER="/bin/sh -c \"col -b | vim --not-a-term -c 'set ft=man ts=8 nonu nornu nomod nolist nobl noma' -\""
 
 setxkbmap -option caps:escape

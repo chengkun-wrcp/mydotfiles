@@ -75,7 +75,7 @@ set expandtab
 " 在行和段开始处使用制表符
 set smarttab
 " 历史文件中需要记录的行数
-set history=1000
+set history=10000
 set nowrap
 set backspace=2
 "}}}
@@ -471,11 +471,12 @@ augroup END
 let $LATEXPLUGIN='~/.vim/ftplugin/tex.vim'
 "}}}
 """""""""""""""""""""""""""""""""""""""""""""""""""
-" Some Functions:
+" Some Functions:{{{
 function SyntaxRegion()
     echom synIDattr(synID(line("."), col("."), 1), "name")
 endfun
-function WordCount(...)	"{{{2
+" 汉字字数
+function WordCount(...)
     silent write
     let Count=0
     let char0 = ''
@@ -498,6 +499,8 @@ function WordCount(...)	"{{{2
 endfunc
 command -range WordCount echo WordCount(<line1>,<line2>)
 " give wordcount of current line, use %WordCount to set range as whole file
+" }}}
+"""""""""""""""""""""""""""""""""""""""""""""""""""
 "" MultiInsert: {{{1
 "let b:MarkerPos=[]
 "nnoremap <leader>m :call MultiInsertSetMarker()<cr>
