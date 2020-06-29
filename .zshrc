@@ -40,16 +40,16 @@ setopt share_history
 # alias
 [ -f ~/.config/shell_aliases ] && . ~/.config/shell_aliases
 
-# fix zsh annoying history behavior
-h() { if [ -z "$*" ]; then history 1; else history 1 | egrep "$@"; fi; }
+# history search
+bindkey '\eOA' history-beginning-search-backward
+bindkey '\e[A' history-beginning-search-backward
+bindkey '\eOB' history-beginning-search-forward
+bindkey '\e[B' history-beginning-search-forward
+bindkey '' history-beginning-search-backward
 
-autoload -Uz up-line-or-beginning-search
-autoload -Uz down-line-or-beginning-search
-zle -N up-line-or-beginning-search
-zle -N down-line-or-beginning-search
-bindkey '\eOA' up-line-or-beginning-search
-bindkey '\e[A' up-line-or-beginning-search
-bindkey '\eOB' down-line-or-beginning-search
-bindkey '\e[B' down-line-or-beginning-search
+# delte key
+bindkey '\e[3~' delete-char
+# bindkey '\x7f' backward-delete-char
+
 
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
