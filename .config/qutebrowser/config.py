@@ -2,12 +2,11 @@
 # Documentation:
 #   qute://help/configuring.html
 #   qute://help/settings.html
+# don't use the yml file anymore
+# config.load_autoconfig()
 
 # color theme
 import dracula.draw
-# Load existing settings made via :set
-config.load_autoconfig()
-
 dracula.draw.blood(c, {
     'spacing': {
         'vertical': 6,
@@ -138,6 +137,13 @@ config.set('content.javascript.enabled', True, 'chrome://*/*')
 # Enable JavaScript.
 # Type: Bool
 config.set('content.javascript.enabled', True, 'qute://*/*')
+
+# start page
+c.url.start_pages = 'www.baidu.com'
+c.url.default_page = 'www.baidu.com'
+
+# tabs hiddin
+c.tabs.show = 'multiple'
 
 # Proxy to use. In addition to the listed values, you can use a
 # `socks://...` or `http://...` URL.

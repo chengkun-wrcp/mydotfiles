@@ -211,10 +211,10 @@ colors:
     black:   '#000000'
     red:     '#d54e53'
     green:   '#aaffaa'
-    yellow:  '#e6c547'
-    blue:    '#3465a4'
-    magenta: '#c397d8'
-    cyan:    '#70c0ba'
+    yellow:  '#e6db74'
+    blue:    '#6688ff'
+    magenta: '#b77ee0'
+    cyan:    '#89ddff'
     white:   '#eaeaea'
 
   # Bright colors
@@ -222,10 +222,10 @@ colors:
     black:   '#555753'
     red:     '#ff3334'
     green:   '#ddffa7'
-    yellow:  '#e7c547'
-    blue:    '#729fcf'
-    magenta: '#b77ee0'
-    cyan:    '#54ced6'
+    yellow:  '#ffe585'
+    blue:    '#9cc4ff'
+    magenta: '#c397d8'
+    cyan:    '#a3f7ff'
     white:   '#eeeeec'
 
   # Dim colors
