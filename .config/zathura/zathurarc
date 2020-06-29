@@ -1,6 +1,6 @@
 #vim:ft=config
 # steps
-set scroll-step 80
+set scroll-step 20
 set zoom-step 2
 
 # colors
@@ -44,7 +44,9 @@ set recolor-keephue             "false"
 
 #fonts
 set font "WenQuanYi Micro Hei Mono normal 11"
-
+# copy, default "primary" is the * register in vim,
+# and can be pasted using middle mouse button
+set selection-clipboard "clipboard"
 
 # synctex
 set synctex true
