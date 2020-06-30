@@ -7,18 +7,18 @@ block(){
 }
 
 # 5 blocks, use color @fg=3,4,5,6,7
-## VOLUME 墳 婢
-vol() {
-    vol=`amixer get Master | awk -F'[][]' 'END{ print $6" "$2 }' | sed 's/on/墳/;s/off/婢/'`
-    b=`block 3 2 "$vol"`
-    echo -e $b
-}
-
 ## BRIGHTNESS☀️ ☼ ☉ 🌣
 bright() {
     current=`cat /sys/class/backlight/intel_backlight/brightness`
     max=`cat /sys/class/backlight/intel_backlight/max_brightness`
-    b=`block 4 2 "+@fn=3; +@fn=0;$((100*current/max))%"`
+    b=`block $1 2 "+@fn=3; +@fn=0;$((100*current/max))%"`
+    echo -e $b
+}
+
+## VOLUME 墳 婢
+vol() {
+    vol=`amixer get Master | awk -F'[][]' 'END{ print $6" "$2 }' | sed 's/on/墳/;s/off/婢/'`
+    b=`block $1 2 "$vol"`
     echo -e $b
 }
 
@@ -35,7 +35,7 @@ cpu() {
     iconcpu="+@fn=3; +@fn=0;"
     #温度
     tem=`sensors | awk '/Core 0/ {print $3}' | sed 's/+//'`
-    b=`block 5 2 "$iconcpu$tem+$clength<$cpu%"`
+    b=`block $1 2 "$iconcpu$tem+$clength<$cpu%"`
     echo -e $b
 }
 
@@ -43,7 +43,7 @@ cpu() {
 mem() {
     mem=`free | awk '/Mem/ {printf "%.1f%\n", 100*$3/$2}'`
     iconmem="+@fn=4;+@fn=0;"
-    b=`block 6 2 "$iconmem$mem"`
+    b=`block $1 2 "$iconmem$mem"`
     echo -e $b
 }
 
@@ -63,7 +63,7 @@ power() {
     [ $bat -gt 90 ] && icon=""
     [ $bat -gt 94 ] && icon=""
     [ $status == "Charging" ] && icon=""
-    b=`block 7 2 "$icon $bat%"`
+    b=`block $1 2 "$icon $bat%"`
     echo -e $b
 }
 
@@ -71,7 +71,7 @@ power() {
 hdd() {
     root="$(df -h | awk 'NR==4{print $6":"$5}')"
     home="$(df -h | awk 'NR==8{print $6":"$5}')"
-    b=`block 8 2 "$root $home"`
+    b=`block $1 2 "$root $home"`
     # b="+@fg=1;+@bg=0;+@fg=3; $root $home "
     echo -e $b
 }
@@ -95,5 +95,5 @@ while :; do
     # check whether v2ray is onⓥ ☑
     v2ray=`systemctl status v2ray | awk '/Active:/ {print $2}'`
     [ $v2ray == "active" ] && netstatus=$netstatus"+@fg=6;+@fn=1;ⓥ+@fg=0;+@fn=0;"
-    echo "$netstatus $(vol) $(bright) $(cpu) $(mem) $(power) $(hdd)"
+    echo "$netstatus $(bright 3) $(vol 4) $(cpu 5) $(mem 6) $(power 7) $(hdd 8)"
 done
