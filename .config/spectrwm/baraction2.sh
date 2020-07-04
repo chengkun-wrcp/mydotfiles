@@ -79,9 +79,12 @@ hdd() {
 SLEEP_SEC=2
 NET=wlp3s0
 # calculate the upload/download speed in the loop
+downicon="+@fn=3; +@fn=0;"
+upicon="+@fn=3; +@fn=0;"
 while :; do
     up_time1=`ifconfig $NET | awk '/TX packets/ {print $5}'`
     down_time1=`ifconfig $NET | awk '/RX packets/ {print $5}'`
+    echo "$netstatus $(bright 3) $(vol 4) $(cpu 5) $(mem 6) $(power 7) $(hdd 8)"
     sleep $SLEEP_SEC
     up_time2=`ifconfig $NET | awk '/TX packets/ {print $5}'`
     down_time2=`ifconfig $NET | awk '/RX packets/ {print $5}'`
@@ -89,11 +92,9 @@ while :; do
     down_time=$((down_time2-down_time1))
     up_time=$((up_time/1024/SLEEP_SEC))
     down_time=$((down_time/1024/SLEEP_SEC))
-    downicon="+@fn=3; +@fn=0;"
-    upicon="+@fn=3; +@fn=0;"
     netstatus=`block 2 0 "$upicon$up_time kb/s $downicon$down_time kb/s"`
     # check whether v2ray is onⓥ ☑
     v2ray=`systemctl status v2ray | awk '/Active:/ {print $2}'`
     [ $v2ray == "active" ] && netstatus=$netstatus"+@fg=6;+@fn=1;ⓥ+@fg=0;+@fn=0;"
-    echo "$netstatus $(bright 3) $(vol 4) $(cpu 5) $(mem 6) $(power 7) $(hdd 8)"
+    # echo "$netstatus $(bright 3) $(vol 4) $(cpu 5) $(mem 6) $(power 7) $(hdd 8)"
 done

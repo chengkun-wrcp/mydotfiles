@@ -2,10 +2,6 @@
 defaultbg=$HOME/arch_layers.png
 maindir=$HOME/Pictures/Wallpapers/wallpapers
 lists=({$maindir/*/*.png,$maindir/*/*.jpg})
-# dir1=(/mnt/e/Pictures/Wallpapers/wallpapers/*/)
-# dir2=${dir1[RANDOM % ${#dir1[@]}]}
-# files=${dir2}*\.@(png|jpg)
-# lists=({${dir2}*.png,${dir2}*.jpg})
 # bash dont support those regex following
 # @(png|jpg),  match:   "png","jpg"
 # ?(png|jpg),  match:   "","png","jpg"

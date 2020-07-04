@@ -5,7 +5,7 @@ bindkey -v
 autoload -U colors && colors	# Load colors
 # PS1="%B%{$fg[green]%}%n@%M %{$fg[blue]%}%~%{$reset_color%}$%b "
 # %F=014,159,,,
-PS1="%B%K{240}%F{014} %~ %F{240}%k %f%b"
+PS1="%B%K{240}%F{014} %~ %F{240}%k%b %f"
 RPS1="%B%{$fg[red]%}%(?..(%?%))%b%{$fg[magenta]%}%T"
 setopt autocd		# Automatically cd into typed directory.
 stty stop undef		# Disable ctrl-s to freeze terminal.

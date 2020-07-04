@@ -1,5 +1,7 @@
 #!/bin/sh
-xwallpaper --zoom /home/chengkun/arch_layers.png &
+# setxkbmap only work with display
+setxkbmap -option caps:escape
+xwallpaper --zoom /home/chengkun/arch.png &
 # $HOME/.local/bin/wallpaperRand &
 fcitx &
 compton &
@@ -7,4 +9,7 @@ redshift &
 # automount usb
 udiskie &
 # natual scroll
-xinput set-prop 13 314 1
+touchpadid=`xinput | awk '/Synaptics/ {print $5}'`
+touchpadid=${touchpadid/"id="/}
+natualscrollid=`xinput list-props 13 | awk -F'[()]' '/Natural/ {print $2;exit;}'`
+xinput set-prop $touchpadid $natualscrollid 1

@@ -7,13 +7,13 @@ highlight clear
 highlight Win             cterm=none ctermfg=default    ctermbg=none
 
 highlight TabLine         cterm=none ctermfg=67    ctermbg=none
-highlight TopLine         cterm=none ctermfg=blue       ctermbg=237
-highlight TopLineSel      cterm=none ctermfg=blue       ctermbg=237
-highlight StatusLine      cterm=none ctermfg=blue       ctermbg=237
-highlight Border          cterm=none ctermfg=blue       ctermbg=237
+highlight TopLine         cterm=none ctermfg=63       ctermbg=238
+highlight TopLineSel      cterm=none ctermfg=63       ctermbg=238
+highlight StatusLine      cterm=none ctermfg=blue       ctermbg=238
+highlight Border          cterm=none ctermfg=blue       ctermbg=238
 
 highlight Selected        cterm=bold ctermfg=red    ctermbg=default
-highlight CurrLine        cterm=bold ctermfg=232    ctermbg=69
+highlight CurrLine        cterm=none ctermfg=default    ctermbg=238
 highlight TabLineSel      cterm=bold ctermfg=232    ctermbg=69
 
 highlight WildMenu        cterm=underline,reverse ctermfg=white ctermbg=none

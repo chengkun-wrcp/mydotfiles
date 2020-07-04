@@ -316,70 +316,37 @@ let g:mma_candy=2
 " let g:mma_highlight_option = "solarized"
 "}}} "}}}
 """""""""""""""""""""""""""""""""""""""""""""""""""
-" Maps and Commands{{{
-let g:ESC="\<esc>"  "写函数时用起来方便
-nnoremap SB :execute "rightbelow 10split ".bufname("#")<cr>
-nnoremap SA :execute "leftabove 10split ".bufname("#")<cr>
-nnoremap SR :execute "rightbelow vsplit ".bufname("#")<cr>
-nnoremap SL :execute "leftabove vsplit ".bufname("#")<cr>
-nnoremap <C-N> :bn<CR>
-nnoremap <C-P> :bp<CR>
-" repeat last command
-nnoremap <leader>. :<up><cr>
-" inoremap ;; <esc>l;i
-" :h key-notation 看哪些键是等价的;
-" ctrl+l等似乎都没什么用;7(for)[]
-" 自定义map时注意ctrl-/没法定义，<c-i>==tab,<c-[>==esc,<c-m>==enter(<CR>);
-nnoremap <c-l> <C-w>l
-nnoremap <c-h> <C-w>h
-nnoremap <c-j> <C-w>j
-nnoremap <c-k> <C-w>k
-nnoremap \ :w<CR>
-nnoremap <space> :let @9=' '<cr>"9Pl
-nnoremap <cr> :let @9="\n"<cr>"9p
-" TODO: use substitute to do this
-vnoremap <leader>( :<c-u>execute "normal! `<i(" .g:ESC. "`>la)".g:ESC<cr>
-vnoremap <leader>{ :<c-u>execute "normal! `<i{" .g:ESC. "`>la}".g:ESC<cr>
-vnoremap <leader>[ :<c-u>execute "normal! `<i[" .g:ESC. "`>la]".g:ESC<cr>
-vnoremap <leader>" :<c-u>execute "normal! `<i\"" .g:ESC. "`>la\"".g:ESC<cr>
-vnoremap <leader>' :<c-u>execute "normal! `<i\'" .g:ESC. "`>la\'".g:ESC<cr>
-" vnoremap <C-c> "+y
-command CD cd %:h
-" command! ON
-command Nautilus call system("nautilus ".expand('%:h')." &")
-" 所有的 <F9> 都映射成了编译
-nnoremap <F9> :call Execute_this_file()<cr>
-func Execute_this_file()
-    silent write
-    if expand("%:e") == 'vim' || expand("%:t") == '.vimrc'
-        return	"在本函数时source vimrc会出错
-    endif
-    if expand("%:e") == 'cpp'
-        " exec '!g++ '.expand("%:p").' -std=c++11 -o '.expand("%:p:r")
-        " %:p 展成全路径
-        cd %:h
-        let l:cppcompile='g++ '.expand("%").' -std=c++11 -o '.expand("%:r").' && ./'.expand("%:r")
-        echo l:cppcompile
-        " below call term_start(l:cppcompile,{"term_rows":15})
-        exec 'below term ++rows=10 bash -c "'.l:cppcompile.'"'
-        " below term ++rows=10 bash -c l:cppcompile 不行
-    elseif index(['wls','m'],expand("%:e")) >= 0
-        term wolframscipt
-    elseif index(['sh','awk'],expand("%:e")) >= 0
-        cd %:h
-        " exec '!./'.expand("%")
-        exec 'below term ++rows=15'
-    elseif expand("%:e") == 'tex'
-        call XeCompileTerminal()    "this function is defined in $LATEXPLUGIN
-    else
-        cd %:h
-        exec 'below term ++rows=15'
-    endif
+" Some Functions:{{{
+function SyntaxRegion()
+    echom synIDattr(synID(line("."), col("."), 1), "name")
+    return synIDattr(synID(line("."), col("."), 1), "name")
 endfun
-"}}}
-"""""""""""""""""""""""""""""""""""""""""""""""""""
-" general autocmds {{{
-func! SetTitle_Initiate() "{{{
+" 汉字字数{{{
+function WordCount(...)
+    silent write
+    let Count=0
+    let char0 = ''
+    let text = ''
+    let [ i , N ] = a:0 == 2 ? [a:1,a:2] : [1,line("$")]
+
+    while i <= N
+        let text = getline(i)
+        let i=i+1
+        for char in split(text,'\zs')
+            if char == '%' && char0 != '\'
+                break
+            elseif char2nr(char)>=0x2000
+                let Count += 1
+            endif
+            let char0=char
+        endfor
+    endwhile
+    return Count."字"
+endfunc
+" give wordcount of current line, use %WordCount to set range as whole file
+command -range WordCount echo WordCount(<line1>,<line2>) "}}}
+" add some contents when open a new file "{{{
+func! SetTitle_Initiate()
     if expand("%:e") == 'sh'
         call setline(1,'#!/bin/bash')
         call setline(2, "set -e")
@@ -420,6 +387,80 @@ func! SetTitle_Initiate() "{{{
         exec ":-1r ~/Documents/latex-template/general.tex"
     endif
 endfunc "}}}
+function! SurroundSelectWith(left,right) "{{{
+    let begincol=col("'<")
+    let endcol=col("'>")+1
+    let beginline=line("'<")
+    let endline=line("'>")
+    silent exec endline.'s/\%'.endcol.'c/'.a:right.'/'
+    silent exec beginline.'s/\%'.begincol.'c/'.a:left.'/'
+    let cusorcolmove = beginline==endline ? len(a:left)+len(a:right) : len(a:right)
+    call cursor(endline,endcol+cusorcolmove )
+endfunction "}}}
+func Run_current_file() " {{{
+    silent write
+    if expand("%:e") == 'vim' || expand("%:t") == '.vimrc'
+        return	"在本函数时source vimrc会出错
+    endif
+    if expand("%:e") == 'cpp'
+        " exec '!g++ '.expand("%:p").' -std=c++11 -o '.expand("%:p:r")
+        " %:p 展成全路径
+        cd %:h
+        let l:cppcompile='g++ '.expand("%").' -std=c++11 -o '.expand("%:r").' && ./'.expand("%:r")
+        echo l:cppcompile
+        " below call term_start(l:cppcompile,{"term_rows":15})
+        exec 'below term ++rows=10 bash -c "'.l:cppcompile.'"'
+        " below term ++rows=10 bash -c l:cppcompile 不行
+    elseif index(['wls','m'],expand("%:e")) >= 0
+        term wolframscipt
+    elseif index(['sh','awk'],expand("%:e")) >= 0
+        cd %:h
+        " exec '!./'.expand("%")
+        exec 'below term ++rows=15'
+    elseif expand("%:e") == 'tex'
+        call XeCompileTerminal()    "this function is defined in $LATEXPLUGIN
+    else
+        cd %:h
+        exec 'below term ++rows=15'
+    endif
+endfun  " }}}
+" }}}
+"""""""""""""""""""""""""""""""""""""""""""""""""""
+" Maps and Commands{{{
+let g:ESC="\<esc>"  "写函数时用起来方便
+nnoremap SB :execute "rightbelow 10split ".bufname("#")<cr>
+nnoremap SA :execute "leftabove 10split ".bufname("#")<cr>
+nnoremap SR :execute "rightbelow vsplit ".bufname("#")<cr>
+nnoremap SL :execute "leftabove vsplit ".bufname("#")<cr>
+nnoremap <C-N> :bn<CR>
+nnoremap <C-P> :bp<CR>
+" repeat last command
+nnoremap <leader>. :<up><cr>
+" inoremap ;; <esc>l;i
+" :h key-notation 看哪些键是等价的;
+" ctrl+l等似乎都没什么用;7(for)[]
+" 自定义map时注意ctrl-/没法定义，<c-i>==tab,<c-[>==esc,<c-m>==<cr>,etc.
+nnoremap <c-l> <C-w>l
+nnoremap <c-h> <C-w>h
+nnoremap <c-j> <C-w>j
+nnoremap <c-k> <C-w>k
+nnoremap \ :w<CR>
+nnoremap <space> :let @9=' '<cr>"9Pl
+nnoremap <cr> :let @9="\n"<cr>"9p
+" Surround the selected area
+vnoremap <leader>" :<c-u>call SurroundSelectWith('"','"') <cr>
+for item in [ ['(',')'],['{','}'],['[',']'],["'","'"],['`','`'] ]
+    exec 'vnoremap <leader>'.item[0].' :<c-u>call SurroundSelectWith("'.item[0].'","'.item[1].'")<cr>'
+endfor
+" vnoremap <C-c> "+y
+command CD cd %:h
+" command! ON
+command Nautilus call system("nautilus ".expand('%:h')." &")
+" 所有的 <F9> 都映射成了编译之类的
+nnoremap <F9> :call Run_current_file()<cr>
+"}}}
+"""""""""""""""""""""""""""""""""""""""""""""""""""
+" general autocmds {{{
 augroup general_au
     autocmd!
     autocmd BufNewFile * call SetTitle_Initiate()
@@ -435,7 +476,7 @@ augroup general_au
                 \ endif |
                 \ normal! zv
 augroup END
-augroup filetype_autocmd
+augroup settings_for_some_filetypes
     autocmd!
     autocmd FileType c,cpp setlocal foldmethod=syntax
     autocmd FileType c,cpp iabbre<buffer> re return
@@ -444,11 +485,12 @@ augroup filetype_autocmd
     autocmd FileType tex nnoremap<buffer> <leader><leader> :call SynctaxSearchForward("zathura")<cr>
     autocmd FileType tex let g:AutoPairs['$']='$'
     autocmd FileType mma setlocal fdm=manual tabstop=2 shiftwidth=2 expandtab
+    " save the manual fold
     autocmd BufWinLeave *.wls mkview
     autocmd BufWinEnter *.wls silent loadview
     " filetype and keywordprogram, for filetype vim kp=:help, others default is man
     autocmd FileType help setlocal keywordprg=:help
-    autocmd FileType sh setlocal keywordprg=:term\ ++close\ man
+    " autocmd FileType sh setlocal keywordprg=:term\ ++close\ man
 augroup END
 augroup terminal_buffer
     autocmd!
@@ -461,36 +503,6 @@ augroup terminal_buffer
 augroup END
 let $LATEXPLUGIN='~/.vim/bundle/vim-tex-tools/ftplugin/tex.vim'
 "}}}
-"""""""""""""""""""""""""""""""""""""""""""""""""""
-" Some Functions:{{{
-function SyntaxRegion()
-    echom synIDattr(synID(line("."), col("."), 1), "name")
-endfun
-" 汉字字数
-function WordCount(...)
-    silent write
-    let Count=0
-    let char0 = ''
-    let text = ''
-    let [ i , N ] = a:0 == 2 ? [a:1,a:2] : [1,line("$")]
-
-    while i <= N
-        let text = getline(i)
-        let i=i+1
-        for char in split(text,'\zs')
-            if char == '%' && char0 != '\'
-                break
-            elseif char2nr(char)>=0x2000
-                let Count += 1
-            endif
-            let char0=char
-        endfor
-    endwhile
-    return Count."字"
-endfunc
-command -range WordCount echo WordCount(<line1>,<line2>)
-" give wordcount of current line, use %WordCount to set range as whole file
-" }}}
 """""""""""""""""""""""""""""""""""""""""""""""""""
 "" MultiInsert: {{{1
 "let b:MarkerPos=[]

@@ -6,5 +6,3 @@ fi
 
 # use vim for manual page
 export MANPAGER="/bin/sh -c \"col -b | vim --not-a-term -c 'set ft=man ts=8 nonu nornu nomod nolist nobl noma ignorecase' -\""
-
-setxkbmap -option caps:escape
