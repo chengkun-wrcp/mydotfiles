@@ -98,21 +98,21 @@ font:
     #   - (Linux/BSD) monospace
     #   - (Windows) Consolas
     #family: monospace
-    family: DejaVuSansMono Nerd Font
+    family: Consolas NF
     # family: DroidSansMono Nerd Font
     # The `style` can be specified to pick a specific face.
     #style: Regular
 
   # Bold font face
-  bold:
+  # bold:
     # Font family
     #
     # If the bold family is not specified, it will fall back to the
     # value specified for the normal font.
-    family: DejaVu Sans Mono
+    # family: DejaVu Sans Mono
     # family: Droid Sans Mono Pro
     # The `style` can be specified to pick a specific face.
-    style: Bold
+    # style: Bold
         # - family: DroidSansMono Nerd Font
     #   - (Linux/BSD) monospace
     #   - (Windows) Consolas
@@ -509,10 +509,12 @@ mouse:
 # at once.
 key_bindings:
   # (Windows, Linux, and BSD only)
-  - { key: V,        mods: Control|Shift, action: Paste            }
-  - { key: C,        mods: Control|Shift, action: Copy             }
-  - { key: K,        mods: Alt, action: ScrollLineUp             }
-  - { key: J,        mods: Alt, action: ScrollLineDown             }
+  - { key: V , mods: Alt           , action: Paste}
+  - { key: V , mods: Control|Shift , action: Paste}
+  - { key: C , mods: Alt           , action: Copy }
+  - { key: C , mods: Control|Shift , action: Copy }
+  - { key: K , mods: Alt           , action: ScrollLineUp   }
+  - { key: J , mods: Alt           , action: ScrollLineDown }
   - { key: Insert,   mods: Shift,         action: PasteSelection   }
   - { key: Key0,     mods: Control,       action: ResetFontSize    }
   - { key: Equals,   mods: Control,       action: IncreaseFontSize }

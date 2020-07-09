@@ -1,6 +1,8 @@
 #!/bin/sh
 # setxkbmap only work with display
-setxkbmap -option caps:escape
+setxkbmap -option caps:escape &
+# clipboard and primary
+autocutsel -selection PRIMARY &
 xwallpaper --zoom /home/chengkun/arch.png &
 # $HOME/.local/bin/wallpaperRand &
 fcitx &

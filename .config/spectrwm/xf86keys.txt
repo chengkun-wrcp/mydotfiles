@@ -1,4 +1,4 @@
-use xev command and press the key, it will show the name
+use 'xev' command to find out the name of a key
 
 XF86AddFavorite
 XF86ApplicationLeft

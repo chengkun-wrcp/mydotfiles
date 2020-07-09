@@ -8,7 +8,8 @@ alias pacautoremove='pacman -Rcs $(pacman -Qdtq)'
 alias SD='shutdown now'
 alias git-dotfiles='git --git-dir=$HOME/Documents/home.git --work-tree=$HOME'
 alias weather='curl wttr.in'
-
+# use proxychain-ng to set vpn
+alias vpn='$HOME/opt/proxychains-ng/proxychains4 -f $HOME/opt/proxychains-ng/src/proxychains.conf'
 
 
 # vim:ft=sh

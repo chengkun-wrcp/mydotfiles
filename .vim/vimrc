@@ -183,7 +183,7 @@ nnoremap <F3> :NERDTreeToggle<CR>
 "autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 let NERDTreeShowHidden=1
 " YCM{{{2
-" let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf.py'
+let g:ycm_global_ycm_extra_conf='~/.vim/ycm_extra_conf.py'
 let g:ycm_confirm_extra_conf = 0
 let g:ycm_error_symbol = '>'
 let g:ycm_warning_symbol = '>'
@@ -226,6 +226,8 @@ let g:airline_theme="base16"
 " let g:airline_theme="minimalist"
 let g:airline_powerline_fonts = 1
 let g:airline_section_c = '%{strftime("%m/%d %a %H:%M")}'
+" let g:airline_section_y = 'BN: %{bufnr("%")}'
+" let g:airline#extentions#wordcount#enabled=0
 "Format String              Example output
 " -------------              --------------
 " %c                         Thu 27 Sep 2007 07:37:42 AM EDT (depends on locale)
@@ -243,8 +245,6 @@ let g:airline_section_c = '%{strftime("%m/%d %a %H:%M")}'
 " %a, %d %b %Y %H:%M:%S %z   Wed, 29 Aug 2007 02:37:15 -0400
 " ISO8601/W3C format (http://www.w3.org/TR/NOTE-datetime):
 " %FT%T%z                    2007-08-29T02:37:13-0400
-" let g:airline_section_y = 'BN: %{bufnr("%")}'
-" let g:airline#extentions#wordcount#enabled=0
 call airline#parts#define_minwidth('tagbar', 90)
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#left_sep = ' '
@@ -424,6 +424,19 @@ func Run_current_file() " {{{
         exec 'below term ++rows=15'
     endif
 endfun  " }}}
+let g:LargeFile = 1024 * 1024 * 10
+function! LargeFileSettings() "{{{
+    " no syntax highlighting etc
+    set eventignore+=FileType
+    " save memory when other file is viewed
+    setlocal bufhidden=unload
+    " is read-only (write with :w new_filename)
+    setlocal buftype=nowrite
+    " no undo possible
+    setlocal undolevels=-1
+     " display message
+    echo "The file is larger than " . (g:LargeFile / 1024 / 1024) . " MB, so some options are changed (see .vimrc for details)."
+endfunction "}}}
 " }}}
 """""""""""""""""""""""""""""""""""""""""""""""""""
 " Maps and Commands{{{
@@ -500,6 +513,10 @@ augroup terminal_buffer
                 \   setlocal nobuflisted    |
                 \   setlocal winfixheight   |
                 \ endif
+augroup END
+augroup LargeFile
+    autocmd!
+    autocmd BufReadPre * let f=getfsize(expand("<afile>")) | if f > g:LargeFile || f == -2 | call LargeFileSettings() | endif
 augroup END
 let $LATEXPLUGIN='~/.vim/bundle/vim-tex-tools/ftplugin/tex.vim'
 "}}}

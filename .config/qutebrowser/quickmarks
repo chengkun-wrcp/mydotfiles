@@ -2,3 +2,4 @@ bing cn.bing.com
 baidu www.baidu.com
 archwiki wiki.archlinux.org
 qutebrowser config https://www.qutebrowser.org/doc/help/configuring.html
+qute-pass https://github.com/qutebrowser/qutebrowser/tree/master/misc/userscripts

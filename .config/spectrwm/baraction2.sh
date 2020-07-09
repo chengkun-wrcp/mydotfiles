@@ -23,6 +23,7 @@ vol() {
 }
 
 ## CPU ⎚ 
+iconcpu="+@fn=3; +@fn=0;"
 cpu() {
     read cpu a b c previdle rest < /proc/stat
     prevtotal=$((a+b+c+previdle))
@@ -32,7 +33,6 @@ cpu() {
     cpu=$((100*( (total-prevtotal) - (idle-previdle) ) / (total-prevtotal) ))
     clength=${#cpu}
     clength=$((3-clength))
-    iconcpu="+@fn=3; +@fn=0;"
     #温度
     tem=`sensors | awk '/Core 0/ {print $3}' | sed 's/+//'`
     b=`block $1 2 "$iconcpu$tem+$clength<$cpu%"`
@@ -40,9 +40,9 @@ cpu() {
 }
 
 ## RAM 
+iconmem="+@fn=4;+@fn=0;"
 mem() {
     mem=`free | awk '/Mem/ {printf "%.1f%\n", 100*$3/$2}'`
-    iconmem="+@fn=4;+@fn=0;"
     b=`block $1 2 "$iconmem$mem"`
     echo -e $b
 }
@@ -67,24 +67,28 @@ power() {
     echo -e $b
 }
 
+
 ## DISK
 hdd() {
-    root="$(df -h | awk 'NR==4{print $6":"$5}')"
-    home="$(df -h | awk 'NR==8{print $6":"$5}')"
-    b=`block $1 2 "$root $home"`
-    # b="+@fg=1;+@bg=0;+@fg=3; $root $home "
+    if [$updateavailable -gt 15 ];then
+        b=`block $1 5 "$updateavailable updates"`
+    else
+        root="$(df -h | awk 'NR==4{print $6":"$5}')"
+        home="$(df -h | awk 'NR==8{print $6":"$5}')"
+        b=`block $1 2 "$root $home"`
+        # b="+@fg=1;+@bg=0;+@fg=3; $root $home "
+    fi
     echo -e $b
 }
 
+## NETWORK
 SLEEP_SEC=2
 NET=wlp3s0
-# calculate the upload/download speed in the loop
 downicon="+@fn=3; +@fn=0;"
 upicon="+@fn=3; +@fn=0;"
-while :; do
+net() {
     up_time1=`ifconfig $NET | awk '/TX packets/ {print $5}'`
     down_time1=`ifconfig $NET | awk '/RX packets/ {print $5}'`
-    echo "$netstatus $(bright 3) $(vol 4) $(cpu 5) $(mem 6) $(power 7) $(hdd 8)"
     sleep $SLEEP_SEC
     up_time2=`ifconfig $NET | awk '/TX packets/ {print $5}'`
     down_time2=`ifconfig $NET | awk '/RX packets/ {print $5}'`
@@ -93,8 +97,15 @@ while :; do
     up_time=$((up_time/1024/SLEEP_SEC))
     down_time=$((down_time/1024/SLEEP_SEC))
     netstatus=`block 2 0 "$upicon$up_time kb/s $downicon$down_time kb/s"`
+    # check updates when network is available
+    [ $down_time -gt 0 ] && [ ! $updateavailable ] && updateavailable=`checkupdates | wc -l`
     # check whether v2ray is onⓥ ☑
     v2ray=`systemctl status v2ray | awk '/Active:/ {print $2}'`
-    [ $v2ray == "active" ] && netstatus=$netstatus"+@fg=6;+@fn=1;ⓥ+@fg=0;+@fn=0;"
-    # echo "$netstatus $(bright 3) $(vol 4) $(cpu 5) $(mem 6) $(power 7) $(hdd 8)"
+    [ $v2ray == "active" ] && netstatus=$netstatus"+@fg=5;+@fn=1;ⓥ+@fg=0;+@fn=0;"
+    echo -e $netstatus
+}
+
+while :; do
+    echo "$network $(bright 3) $(vol 4) $(cpu 5) $(mem 6) $(power 7) $(hdd 8)"
+    network=$(net)
 done
