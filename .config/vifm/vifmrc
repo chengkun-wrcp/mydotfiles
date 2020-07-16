@@ -400,6 +400,7 @@ set vifminfo=dhistory,savedirs,chistory,state,tui,shistory,
 
 " Start shell in current directory
 nnoremap s :shell<cr>
+nnoremap qq :q<cr>
 
 " Display sorting dialog
 nnoremap S :sort<cr>
@@ -428,7 +429,7 @@ nnoremap cc cw<c-u>
 nnoremap A cw
 
 " Open console in current directory
-nnoremap ,t :!xterm &<cr>
+nnoremap ,t :!st &<cr>
 
 " Open editor to edit vifmrc and apply settings after returning to vifm
 nnoremap ,c :write | edit $MYVIFMRC | restart<cr>
@@ -474,9 +475,11 @@ nnoremap <f8> :delete<cr>
 
 "dirsize
 set dirsize='nitems'
-"icons:
-" file types
+" There are all kind of icons on https://www.nerdfonts.com/cheat-sheet
+" file types 
 set classify=' :dir:/, :exe:, :reg:, :link:'
+" special folder
+set classify+=' ::Downloads/::, ::Pictures/::, ::.vifm-Trash*/::'
 " various file names
 set classify+=' ::../::, ::*.sh::, ::*.[hc]pp::, ::*.[hc]::, ::/^copying|license$/::, ::.git/,,*.git/::, ::*.epub,,*.fb2,,*.djvu::, ::*.pdf::, ::*.htm,,*.html,,**.[sx]html,,*.xml::'
 " archives
@@ -495,4 +498,3 @@ nnoremap <c-l> <c-w>l
 nnoremap <c-h> <c-w>h
 nnoremap <c-j> <c-w>j
 nnoremap <c-k> <c-w>k
-command term !alacritty --working-directory ./ &

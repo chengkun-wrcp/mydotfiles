@@ -98,8 +98,8 @@ font:
     #   - (Linux/BSD) monospace
     #   - (Windows) Consolas
     #family: monospace
-    family: Consolas NF
-    # family: DroidSansMono Nerd Font
+    # family: Consolas NF
+    family: DejaVuSansMono Nerd Font
     # The `style` can be specified to pick a specific face.
     #style: Regular
 

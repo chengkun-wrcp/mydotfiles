@@ -1,4 +1,4 @@
-""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""" 
 " General Settings: "{{{
 " hi vimCommentTitle ctermbg=...
 let mapleader = " "
@@ -16,7 +16,7 @@ set nrformats=
 " esc 有延迟的问题vim --clean 也不行，vim -u NONE 可以
 set timeoutlen=500
 set ttimeoutlen=5
-set clipboard=unnamedplus,exclude:cons\|linux
+set clipboard=unnamed,exclude:cons\|linux
 
 "}}}
 """"""""""""""""""""""""""""""""""""""
@@ -34,7 +34,7 @@ set t_Co=256
 set showcmd
 " 命令行的高度
 set cmdheight=1
-" 命令行显示vim当前模式:e.g. "-- insert --"
+" 命令行显示vim当前模式:e.g. "-- INSERT --"
 set showmode
 " 总是显示状态栏
 set laststatus=2
@@ -449,26 +449,27 @@ nnoremap <C-N> :bn<CR>
 nnoremap <C-P> :bp<CR>
 " repeat last command
 nnoremap <leader>. :<up><cr>
-" inoremap ;; <esc>l;i
 " :h key-notation 看哪些键是等价的;
-" ctrl+l等似乎都没什么用;7(for)[]
 " 自定义map时注意ctrl-/没法定义，<c-i>==tab,<c-[>==esc,<c-m>==<cr>,etc.
 nnoremap <c-l> <C-w>l
 nnoremap <c-h> <C-w>h
 nnoremap <c-j> <C-w>j
 nnoremap <c-k> <C-w>k
+" Copy Paste
+vnoremap <c-c> "+y
+" vnoremap <C-Y> "+y
+" vnoremap <c-v> "+p
+" nnoremap <c-v> "+p
+" Others
 nnoremap \ :w<CR>
 nnoremap <space> :let @9=' '<cr>"9Pl
-nnoremap <cr> :let @9="\n"<cr>"9p
 " Surround the selected area
 vnoremap <leader>" :<c-u>call SurroundSelectWith('"','"') <cr>
 for item in [ ['(',')'],['{','}'],['[',']'],["'","'"],['`','`'] ]
     exec 'vnoremap <leader>'.item[0].' :<c-u>call SurroundSelectWith("'.item[0].'","'.item[1].'")<cr>'
 endfor
-" vnoremap <C-c> "+y
 command CD cd %:h
 " command! ON
-command Nautilus call system("nautilus ".expand('%:h')." &")
 " 所有的 <F9> 都映射成了编译之类的
 nnoremap <F9> :call Run_current_file()<cr>
 "}}}

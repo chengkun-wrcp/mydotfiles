@@ -7,23 +7,23 @@ block(){
 }
 
 # 5 blocks, use color @fg=3,4,5,6,7
-## BRIGHTNESS☀️ ☼ ☉ 🌣
+## BRIGHTNESS盛  ☼  🌣
 bright() {
     current=`cat /sys/class/backlight/intel_backlight/brightness`
     max=`cat /sys/class/backlight/intel_backlight/max_brightness`
-    b=`block $1 2 "+@fn=3; +@fn=0;$((100*current/max))%"`
+    b=`block $1 2 "+@fn=2;盛 +@fn=0;$((100*current/max))%"`
     echo -e $b
 }
 
 ## VOLUME 墳 婢
 vol() {
-    vol=`amixer get Master | awk -F'[][]' 'END{ print $6" "$2 }' | sed 's/on/墳/;s/off/婢/'`
+    vol=`amixer get Master | awk -F'[][]' 'END{ print $4" "$2 }' | sed 's/on/+@fn=2;墳+@fn=0;/;s/off/+@fn=2;婢+@fn=0;/'`
     b=`block $1 2 "$vol"`
     echo -e $b
 }
 
-## CPU ⎚ 
-iconcpu="+@fn=3; +@fn=0;"
+## CPU ⎚  +@fn=3;
+iconcpu="+@fn=2;+@fn=0;"
 cpu() {
     read cpu a b c previdle rest < /proc/stat
     prevtotal=$((a+b+c+previdle))
@@ -35,7 +35,7 @@ cpu() {
     clength=$((3-clength))
     #温度
     tem=`sensors | awk '/Core 0/ {print $3}' | sed 's/+//'`
-    b=`block $1 2 "$iconcpu$tem+$clength<$cpu%"`
+    b=`block $1 2 "$iconcpu $tem+$clength<$cpu%"`
     echo -e $b
 }
 
@@ -47,7 +47,7 @@ mem() {
     echo -e $b
 }
 
-## POWER ⚡           
+## POWER            
 power() {
     bat=`cat /sys/class/power_supply/BAT1/capacity`
     status=`cat /sys/class/power_supply/BAT1/status`
@@ -62,7 +62,7 @@ power() {
     [ $bat -gt 80 ] && icon=""
     [ $bat -gt 90 ] && icon=""
     [ $bat -gt 94 ] && icon=""
-    [ $status == "Charging" ] && icon=""
+    [ $status == "Charging" ] && icon=""
     b=`block $1 2 "$icon $bat%"`
     echo -e $b
 }
@@ -70,14 +70,9 @@ power() {
 
 ## DISK
 hdd() {
-    if [$updateavailable -gt 15 ];then
-        b=`block $1 5 "$updateavailable updates"`
-    else
-        root="$(df -h | awk 'NR==4{print $6":"$5}')"
-        home="$(df -h | awk 'NR==8{print $6":"$5}')"
-        b=`block $1 2 "$root $home"`
-        # b="+@fg=1;+@bg=0;+@fg=3; $root $home "
-    fi
+    root="$(df -h | awk 'NR==4{print $6":"$5}')"
+    home="$(df -h | awk 'NR==8{print $6":"$5}')"
+    b=`block $1 2 "$root $home"`
     echo -e $b
 }
 
@@ -97,15 +92,14 @@ net() {
     up_time=$((up_time/1024/SLEEP_SEC))
     down_time=$((down_time/1024/SLEEP_SEC))
     netstatus=`block 2 0 "$upicon$up_time kb/s $downicon$down_time kb/s"`
-    # check updates when network is available
-    [ $down_time -gt 0 ] && [ ! $updateavailable ] && updateavailable=`checkupdates | wc -l`
-    # check whether v2ray is onⓥ ☑
+    # check whether v2ray is on  ☑
     v2ray=`systemctl status v2ray | awk '/Active:/ {print $2}'`
-    [ $v2ray == "active" ] && netstatus=$netstatus"+@fg=5;+@fn=1;ⓥ+@fg=0;+@fn=0;"
+    [ $v2ray == "active" ] && netstatus=$netstatus"+@fg=5;+@fg=0;"
     echo -e $netstatus
 }
 
 while :; do
-    echo "$network $(bright 3) $(vol 4) $(cpu 5) $(mem 6) $(power 7) $(hdd 8)"
+    echo "$network $(bright 3) $(vol 4) $(cpu 5) $(mem 6) $(power 7) $(hdd 8) +@fg=1;+@bg=0;+@fg=7;+@fn=1; +S"
     network=$(net)
 done
+# 

@@ -1,21 +1,44 @@
 #!/bin/bash
 set -e
+usage()
+{
+    echo "Usage: ext [ -options ] file"
+    echo "       -v : preview only"
+    exit 0
+}
+VIEW="FALSE"
+PARSED_ARGUMENTS=$(getopt -o v -- "$@")
+# echo "PARSED_ARGUMENTS is $PARSED_ARGUMENTS"
+eval set -- "$PARSED_ARGUMENTS"
+while :
+do
+    case "$1" in
+        -v ) VIEW="TRUE"      ; shift   ;;
+        # -- means the end of the arguments; drop this, and break out of the while loop
+        --) shift; break ;;
+        # If invalid options were passed, then getopt should have reported an error,
+        # which we checked as VALID_ARGUMENTS when getopt was called...
+        *) echo "Unexpected option: $1 - this should not happen."
+        usage ;;
+esac
+done
+
 # [ -z $1 ] && echo arguments needed && exit
 # ${var:?message} dispaly error message if empty,  ${var?message} display error message if Unset, exit automatically when error
-file=${1:?"Arguments needed!"}
+file=$@
 [ ! -r $file ] && echo "can't read file:" $file && exit
 # dir=${2:-./}
 
 case $file in
-    *.tar     ) extractcmd="tar -xvf" ;;
-    *.tar.gz  ) extractcmd="tar -zxvf";;
-    *.tar.xz  ) extractcmd="tar -xvJf";;
-    *.tar.bz2 ) extractcmd="tar -xjvf";;
-    *.tar.Z   ) extractcmd="tar -xZvf";;
-    *.zip     ) extractcmd="unzip"    ;;
-    *.gz      ) extractcmd="gzip -d"  ;;
-    *.rar     ) extractcmd="unrar e"  ;;
+    *.tar     ) extractcmd="tar -xvf" ; viewcmd="tar -tf" ;;
+    *.tar.gz  ) extractcmd="tar -zxvf"; viewcmd="tar -tzf";;
+    *.tar.xz  ) extractcmd="tar -xvJf"; viewcmd="tar -tf" ;;
+    *.tar.bz2 ) extractcmd="tar -xjvf"; viewcmd="tar -tjf";;
+    *.tar.Z   ) extractcmd="tar -xZvf"; viewcmd="tar -tZf";;
+    *.zip     ) extractcmd="unzip"    ; viewcmd="zip -sf" ;;
+    *.gz      ) extractcmd="gzip -d"  ; viewcmd="gzip -l" ;;
+    *.rar     ) extractcmd="unrar e"  ; viewcmd="unrar v" ;;
     *)   echo filetype not supported && exit ;;
 esac
 
-$extractcmd $file
+[ $VIEW == "TRUE" ] && echo $viewcmd $file || echo $extractcmd $file

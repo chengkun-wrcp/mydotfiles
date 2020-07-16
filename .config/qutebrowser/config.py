@@ -9,8 +9,8 @@
 import dracula.draw
 dracula.draw.blood(c, {
     'spacing': {
-        'vertical': 6,
-        'horizontal': 8
+        'vertical': 3,
+        'horizontal': 6
     }
 })
 
@@ -144,6 +144,11 @@ c.url.default_page = 'www.baidu.com'
 
 # tabs hiddin
 c.tabs.show = 'multiple'
+# statusbar hiddin
+c.statusbar.show = 'in-mode'
+
+# password
+config.bind('<Ctrl-p>', 'spawn --userscript qute-pass')
 
 # Proxy to use. In addition to the listed values, you can use a
 # `socks://...` or `http://...` URL.

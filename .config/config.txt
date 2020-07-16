@@ -4,6 +4,7 @@
 config      ~/.config/config.txt
 alias       ~/.config/shell_aliases
 alacritty   ~/.config/alacritty/alacritty.yml
+st          ~/opt/st/config.h 
 vim         ~/.vim/vimrc
 vifm        ~/.config/vifm/vifmrc
 zathura     ~/.config/zathura/zathurarc

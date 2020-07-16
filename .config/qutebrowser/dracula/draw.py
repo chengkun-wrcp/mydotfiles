@@ -20,8 +20,8 @@ def blood(c, options = {}):
     }   
 
     spacing = options.get('spacing', {
-        'vertical': 5,
-        'horizontal': 5
+        'vertical': 6,
+        'horizontal': 8
     })
 
     padding = options.get('padding', {

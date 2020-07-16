@@ -6,7 +6,7 @@ OPENTERM="FALSE"
 EDITTHIS="FALSE"
 usage()
 {
-    echo "Usage: alphabet [ -options ] program"
+    echo "Usage: config [ -options ] program"
     echo "       -t : open new terminal"
     echo "       -e : edit this script"
     echo "       -h : show this message"
@@ -42,4 +42,4 @@ else
     filepath=${filepath/\~/$HOME}
 fi
 
-[ $OPENTERM == "TRUE" ] && alacritty -e vim $filepath || vim $filepath
+[ $OPENTERM == "TRUE" ] && myterm -e vim $filepath || vim $filepath

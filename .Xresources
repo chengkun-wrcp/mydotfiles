@@ -6,17 +6,17 @@
 *.foreground: gray
 
 ! black
-*.color0: rgb:00/00/00
-*.color8: rgb:55/57/53
+*.color0: #000000
+*.color8: #555753
 ! red
 *.color1: #d54e53
 *.color9: #ff3334
 ! green
-*.color2: rgb:aa/ff/aa
-*.color10: rgb:dd/ff/a7
+*.color2: #aaffaa
+*.color10: #ddffa7
 ! yellow
-*.color3: rgb:e6/db/74
-*.color11: rgb:ff/E5/85
+*.color3: #e6db74
+*.color11: #ffe585
 ! blue
 *.color4: #6688ff
 *.color12: #9cc4ff
@@ -27,19 +27,16 @@
 *.color6: #89ddff
 *.color14: #a3f7ff
 ! white
-*.color7: rgb:D3/D7/CF
-*.color15: rgb:EE/EE/EC
-
-
-!!*.font: xft:Droid Sans Mono Nerd Font Complete:size=13
-!!*.boldFont: xft:Droid Sans Mono Nerd Font Complete:style=Bold:size=13
+*.color7: #d3d7cf
+*.color15: #eeeeec
 
 !! st
-st.alpha: 0.90
-st.font: Monospace-13;
-st.background: #1f1f1f
-/* st.font: xft:DejaVu Sans Mono:size=12 */
-/* st.boldFont: xft:DejaVu Sans Mono:style=Bold:size=12 */
+st.alpha: 0.88
+st.background: #191919
+st.font: Consolas NF:pixelsize=18:antialias=true:autohint=true
+st.fontalt0: WenQuanYi Micro Hei:pixelsize=17:antialias=true:autohint=true
+st.fontalt1: JoyPixels:pixelsize=13:antialias=true:autohint=true
+st.fontalt2: icomoon\\-feather:pixelsize=14
 
 !
 !! URxvt Appearance
@@ -49,11 +46,9 @@ URxvt.depth: 32
 URxvt.background: [88]#191919
 !! URxvt.font:xft:Dejavu Sans Mono:size=9:antialias=True, \
 !! xft:HYZhongYuanJ:size=13:antialias=True
-URxvt.font: xft:Consolas NF:size=13:antialias=True, \
-              xft:WenQuanYi Micro Hei:size=12:antialias=True,\
-              xft:JoyPixels:size=13:antialias=True
-!URxvt.Font: xft:Unifont:size=13
-!! urxvt.boldItalicFont: xft:Droid Sans Mono Nerd Font Complete:style=Bold Italic:size=8
+URxvt.font: xft:Consolas NF:size=14:antialias=True, \
+              xft:WenQuanYi Micro Hei:size=13:antialias=True,\
+              xft:JoyPixels:size=14:antialias=True
 !! URxvt.letterSpace: -1
 !! URxvt.lineSpace: 0
 !! URxvt.geometry: 92x24
@@ -84,8 +79,8 @@ URxvt.keysym.M-j: command:\033]721;1\007
 !! Copy Paste & Other Extensions
 URxvt.keysym.Shift-Control-V: eval:paste_clipboard
 URxvt.keysym.Shift-Control-C: eval:selection_to_clipboard
-URxvt.keysym.M-V: eval:paste_clipboard
-URxvt.keysym.M-C: eval:selection_to_clipboard
+URxvt.keysym.M-v: eval:paste_clipboard
+URxvt.keysym.M-c: eval:selection_to_clipboard
 !! URxvt.perl-lib: .config/urxvt/urxvt-perls/
 URxvt.perl-ext-common: default,url-select,keyboard-select
 URxvt.keysym.M-Escape: perl:keyboard-select:activate

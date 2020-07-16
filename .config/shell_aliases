@@ -2,14 +2,19 @@ alias ls='ls --color=auto'
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
-alias vifm='vifm .'
+alias vf='vifm .'
 # use pacman -Rs and there will be no need for autoremove
-alias pacautoremove='pacman -Rcs $(pacman -Qdtq)'
+alias pacautoremove='sudo pacman -Rns $(pacman -Qdtq)'
 alias SD='shutdown now'
 alias git-dotfiles='git --git-dir=$HOME/Documents/home.git --work-tree=$HOME'
 alias weather='curl wttr.in'
+# alias cp='rsync,,,,' # show copy status
+# select useful information from xprop for spectrwm quirks
+alias xprop-quirk='xprop | grep -E "^(WM_CLASS|_NET_WM_NAME|WM_NAME)" | sed "s/,/\nclass =/;s/WM_CLASS(STRING)/instance/;s/_NET_WM_NAME/name/;s/WM_NAME/name/" | tac'
 # use proxychain-ng to set vpn
-alias vpn='$HOME/opt/proxychains-ng/proxychains4 -f $HOME/opt/proxychains-ng/src/proxychains.conf'
-
-
+alias vpn="$HOME/opt/proxychains-ng/proxychains4 -f $HOME/opt/proxychains-ng/src/proxychains.conf"
+# some very simple functions:
+aur(){
+    git clone https://aur.archlinux.org/$1.git
+}
 # vim:ft=sh
