@@ -39,8 +39,9 @@ cpu() {
     echo -e $b
 }
 
-## RAM 
+## RAM 
 iconmem="+@fn=4;+@fn=0;"
+# iconmem="+@fn=2; +@fn=0;"
 mem() {
     mem=`free | awk '/Mem/ {printf "%.1f%\n", 100*$3/$2}'`
     b=`block $1 2 "$iconmem$mem"`
@@ -62,7 +63,7 @@ power() {
     [ $bat -gt 80 ] && icon=""
     [ $bat -gt 90 ] && icon=""
     [ $bat -gt 94 ] && icon=""
-    [ $status == "Charging" ] && icon=""
+    [ $status = "Charging" ] && icon=""
     b=`block $1 2 "$icon $bat%"`
     echo -e $b
 }
@@ -92,14 +93,14 @@ net() {
     up_time=$((up_time/1024/SLEEP_SEC))
     down_time=$((down_time/1024/SLEEP_SEC))
     netstatus=`block 2 0 "$upicon$up_time kb/s $downicon$down_time kb/s"`
-    # check whether v2ray is on  ☑
+    # check vpn is on  ☑ 
     v2ray=`systemctl status v2ray | awk '/Active:/ {print $2}'`
-    [ $v2ray == "active" ] && netstatus=$netstatus"+@fg=5;+@fg=0;"
+    [ $v2ray = "active" ] && netstatus=$netstatus"+@fg=5;+@fg=0;"
     echo -e $netstatus
 }
 
 while :; do
-    echo "$network $(bright 3) $(vol 4) $(cpu 5) $(mem 6) $(power 7) $(hdd 8) +@fg=1;+@bg=0;+@fg=7;+@fn=1; +S"
+    echo "$network $(bright 3) $(vol 4) $(cpu 5) $(mem 6) $(power 7) $(hdd 8) +@fg=1;+@fn=2;+@bg=0;+@fg=7;+@fn=1;"
     network=$(net)
 done
 # 

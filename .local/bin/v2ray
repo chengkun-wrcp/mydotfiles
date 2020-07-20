@@ -24,8 +24,8 @@ elif [ $1 == "restart" ];then
 elif [ $1 == "stop" ];then
     systemctl stop v2ray.service
 elif [ $1 == "config" ];then
-    sudo vim /etc/v2ray/config.json
-    sudo systemctl restart v2ray.service
+    vim /etc/v2ray/config.json
+    systemctl restart v2ray.service
 # elif [ $1 == "proxy" ];then
 else
     help

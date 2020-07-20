@@ -1,3 +1,5 @@
+# aliases and functions
+# this script is sourced by bashrc and zshrc
 alias ls='ls --color=auto'
 alias ll='ls -alF'
 alias la='ls -A'
@@ -11,10 +13,15 @@ alias weather='curl wttr.in'
 # alias cp='rsync,,,,' # show copy status
 # select useful information from xprop for spectrwm quirks
 alias xprop-quirk='xprop | grep -E "^(WM_CLASS|_NET_WM_NAME|WM_NAME)" | sed "s/,/\nclass =/;s/WM_CLASS(STRING)/instance/;s/_NET_WM_NAME/name/;s/WM_NAME/name/" | tac'
-# use proxychain-ng to set vpn
-alias vpn="$HOME/opt/proxychains-ng/proxychains4 -f $HOME/opt/proxychains-ng/src/proxychains.conf"
 # some very simple functions:
 aur(){
     git clone https://aur.archlinux.org/$1.git
+}
+# alias vpn="$HOME/opt/proxychains-ng/proxychains4 -f $HOME/opt/proxychains-ng/src/proxychains.conf"
+vpn (){
+    v2ray=`systemctl status v2ray | awk '/Active:/ {print $2}'`
+    [ $v2ray = "inactive" ] && echo "V2ray is not active, starting v2ray......" && sudo v2ray start && sleep 1
+    # use proxychain-ng to set proxy for v2ray
+    $HOME/opt/proxychains-ng/proxychains4 -f $HOME/opt/proxychains-ng/src/proxychains.conf $*
 }
 # vim:ft=sh

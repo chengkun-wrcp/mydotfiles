@@ -504,6 +504,7 @@ augroup settings_for_some_filetypes
     autocmd BufWinEnter *.wls silent loadview
     " filetype and keywordprogram, for filetype vim kp=:help, others default is man
     autocmd FileType help setlocal keywordprg=:help
+    autocmd BufWritePost $HOME/.Xresources :silent !xrdb $HOME/.Xresources
     " autocmd FileType sh setlocal keywordprg=:term\ ++close\ man
 augroup END
 augroup terminal_buffer

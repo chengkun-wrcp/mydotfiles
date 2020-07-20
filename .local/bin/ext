@@ -4,16 +4,18 @@ usage()
 {
     echo "Usage: ext [ -options ] file"
     echo "       -v : preview only"
+    echo "       -V : preview in less"
     exit 0
 }
 VIEW="FALSE"
-PARSED_ARGUMENTS=$(getopt -o v -- "$@")
+PARSED_ARGUMENTS=$(getopt -o vV -- "$@")
 # echo "PARSED_ARGUMENTS is $PARSED_ARGUMENTS"
 eval set -- "$PARSED_ARGUMENTS"
 while :
 do
     case "$1" in
         -v ) VIEW="TRUE"      ; shift   ;;
+        -V ) VIEW="LESS"      ; shift   ;;
         # -- means the end of the arguments; drop this, and break out of the while loop
         --) shift; break ;;
         # If invalid options were passed, then getopt should have reported an error,
@@ -25,7 +27,7 @@ done
 
 # [ -z $1 ] && echo arguments needed && exit
 # ${var:?message} dispaly error message if empty,  ${var?message} display error message if Unset, exit automatically when error
-file=$@
+file=${@:?Arguments needed}
 [ ! -r $file ] && echo "can't read file:" $file && exit
 # dir=${2:-./}
 
@@ -41,4 +43,10 @@ case $file in
     *)   echo filetype not supported && exit ;;
 esac
 
-[ $VIEW == "TRUE" ] && echo $viewcmd $file || echo $extractcmd $file
+# [ $VIEW == "TRUE" ] && $viewcmd $file || $extractcmd $file
+case $VIEW in
+    FALSE ) $extractcmd $file ;;
+    TRUE  ) $viewcmd $file    ;;
+    LESS  ) $viewcmd $file | less ;;
+    *) echo error && exit 1;;
+esac
