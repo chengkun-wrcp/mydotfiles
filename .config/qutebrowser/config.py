@@ -146,6 +146,9 @@ c.url.default_page = 'www.baidu.com'
 c.tabs.show = 'multiple'
 # statusbar hiddin
 c.statusbar.show = 'in-mode'
+c.fonts.default_size = '13pt'
+c.zoom.default = '110%'
+c.completion.height = '60%'
 
 # password
 config.bind('<Ctrl-p>', 'spawn --userscript qute-pass')

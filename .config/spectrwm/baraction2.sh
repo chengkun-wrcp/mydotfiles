@@ -7,11 +7,11 @@ block(){
 }
 
 # 5 blocks, use color @fg=3,4,5,6,7
-## BRIGHTNESS盛  ☼  🌣
+## BRIGHTNESS盛盛  ☼  
 bright() {
     current=`cat /sys/class/backlight/intel_backlight/brightness`
     max=`cat /sys/class/backlight/intel_backlight/max_brightness`
-    b=`block $1 2 "+@fn=2;盛 +@fn=0;$((100*current/max))%"`
+    b=`block $1 2 "+@fn=3; +@fn=0;$((100*current/max))%"`
     echo -e $b
 }
 
@@ -73,8 +73,14 @@ power() {
 hdd() {
     root="$(df -h | awk 'NR==4{print $6":"$5}')"
     home="$(df -h | awk 'NR==8{print $6":"$5}')"
-    b=`block $1 2 "$root $home"`
+    b=`block $1 1 "$root $home"`
     echo -e $b
+}
+
+others(){
+    USER=`whoami`
+    android=`ls /run/user/1000/gvfs`
+    usb=`ls /run/media/$USER`
 }
 
 ## NETWORK

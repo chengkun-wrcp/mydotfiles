@@ -5,3 +5,4 @@ qutebrowser config https://www.qutebrowser.org/doc/help/configuring.html
 qute-pass https://github.com/qutebrowser/qutebrowser/tree/master/misc/userscripts
 create packages https://wiki.archlinux.org/index.php/Creating_packages
 sci-hub http://tool.yovisun.com/scihub/
+AUR https://aur.tuna.tsinghua.edu.cn/

@@ -4,6 +4,7 @@ alias ls='ls --color=auto'
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
+alias e='exit'
 alias vf='vifm .'
 # use pacman -Rs and there will be no need for autoremove
 alias pacautoremove='sudo pacman -Rns $(pacman -Qdtq)'

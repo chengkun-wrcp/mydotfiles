@@ -4,7 +4,7 @@ setxkbmap -option caps:escape &
 fcitx &
 
 # display stuff
-xwallpaper --zoom $HOME/arch.png &
+xwallpaper --zoom $HOME/bg.png &
 compton &
 redshift &
 
@@ -12,8 +12,7 @@ redshift &
 udiskie &
 
 # natual scroll
-touchpadid=`xinput | awk '/Synaptics/ {print $5}'`
-touchpadid=${touchpadid/"id="/}
+touchpadid=`xinput | awk -F'=' '/Synaptics/ {print $2}' | awk '{print $1}'`
 natualscrollid=`xinput list-props $touchpadid | awk -F'[()]' '/Natural/ {print $2;exit;}'`
 xinput set-prop $touchpadid $natualscrollid 1
 

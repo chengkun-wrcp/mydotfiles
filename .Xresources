@@ -33,8 +33,8 @@
 !! st
 st.alpha: 0.88
 st.background: #191919
-st.font: Consolas NF:pixelsize=18:antialias=true:autohint=true
-st.fontalt0: WenQuanYi Micro Hei:pixelsize=17:antialias=true:autohint=true
+st.font: Consolas NF:pixelsize=19:antialias=true:autohint=true
+st.fontalt0: WenQuanYi Micro Hei:pixelsize=18:antialias=true:autohint=true
 st.fontalt1: JoyPixels:pixelsize=13:antialias=true:autohint=true
 st.fontalt2: icomoon\\-feather:pixelsize=14
 
@@ -46,9 +46,9 @@ URxvt.depth: 32
 URxvt.background: [88]#191919
 !! URxvt.font:xft:Dejavu Sans Mono:size=9:antialias=True, \
 !! xft:HYZhongYuanJ:size=13:antialias=True
-URxvt.font: xft:Consolas NF:size=14:antialias=True, \
-              xft:WenQuanYi Micro Hei:size=13:antialias=True,\
-              xft:JoyPixels:size=14:antialias=True
+URxvt.font: xft:Consolas NF:size=17:antialias=True, \
+              xft:WenQuanYi Micro Hei:size=16:antialias=True,\
+              xft:JoyPixels:size=17:antialias=True
 !! URxvt.letterSpace: -1
 !! URxvt.lineSpace: 0
 !! URxvt.geometry: 92x24
