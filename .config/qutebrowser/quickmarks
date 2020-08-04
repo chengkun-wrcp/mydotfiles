@@ -6,3 +6,8 @@ qute-pass https://github.com/qutebrowser/qutebrowser/tree/master/misc/userscript
 create packages https://wiki.archlinux.org/index.php/Creating_packages
 sci-hub http://tool.yovisun.com/scihub/
 AUR https://aur.tuna.tsinghua.edu.cn/
+tls http://www.wangchao.info/1579.html
+v2ray tls https://tlanyan.me/v2ray-traffic-mask/
+namesilo https://www.namesilo.com/
+证书 https://tlanyan.me/use-lets-encrypt-certificate/
+v2ray-tls-install.sh https://github.com/wulabing/V2Ray_ws-tls_bash_onekey

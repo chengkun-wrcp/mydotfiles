@@ -46,8 +46,8 @@ URxvt.depth: 32
 URxvt.background: [88]#191919
 !! URxvt.font:xft:Dejavu Sans Mono:size=9:antialias=True, \
 !! xft:HYZhongYuanJ:size=13:antialias=True
-URxvt.font: xft:Consolas NF:size=17:antialias=True, \
-              xft:WenQuanYi Micro Hei:size=16:antialias=True,\
+URxvt.font: xft:Consolas NF:size=18:antialias=True, \
+              xft:WenQuanYi Micro Hei:size=17:antialias=True,\
               xft:JoyPixels:size=17:antialias=True
 !! URxvt.letterSpace: -1
 !! URxvt.lineSpace: 0

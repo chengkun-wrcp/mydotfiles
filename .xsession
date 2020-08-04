@@ -1,6 +1,7 @@
 #!/bin/sh
-# setxkbmap only work with display
-setxkbmap -option caps:escape &
+
+# input
+setxkbmap -option caps:escape & # setxkbmap doesn't work in tty
 fcitx &
 
 # display stuff

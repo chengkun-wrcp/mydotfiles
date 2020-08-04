@@ -8,7 +8,23 @@ help() {
     echo -e "\t" v2ray stop : stop the v2ray service
     echo -e "\t" v2ray status : show status
     echo -e "\t" v2ray config : config v2ray
-    echo -e "\t" v2ray proxy : change system proxy
+    echo -e "\t" v2ray upgrade : upgrade v2ray from internet
+}
+
+upgrade() {
+    v2ray=`systemctl status v2ray | awk '/Active:/ {print $2}'`
+    [ $v2ray = "inactive" ] && echo "V2ray is not active, starting v2ray......" && sudo systemctl start v2ray.service && sleep 1
+    listen=`sed -n '/inbounds/,/outbounds/p' /etc/v2ray/config.json | awk -F':' '/listen/{print $2; exit}' | sed 's/"//g;s/,//g;s/ //g' `
+    port=`sed -n '/inbounds/,/outbounds/p' /etc/v2ray/config.json | awk -F':' '/port/{print $2; exit}' | sed 's/"//g;s/,//g;s/ //g' `
+    # echo "./go.sh -p socks5://$listen:$port"
+    proxy="socks5://$listen:$port"
+    download=`mktemp -d`
+    echo "curl -L https://install.direct/go.sh"
+    curl -L https://install.direct/go.sh --socks5 $proxy > $download/go.sh
+    echo "sudo bash go.sh"
+    sudo bash $download/go.sh -p $proxy
+    echo "remove go.sh"
+    rm -r $download
 }
 
 if [ $# == 0 ];then
@@ -18,15 +34,16 @@ elif [ $1 == "help" ];then
 elif [ $1 == "status" ];then
     systemctl status v2ray.service
 elif [ $1 == "start" ];then
-    systemctl start v2ray.service
+    sudo systemctl start v2ray.service
 elif [ $1 == "restart" ];then
-    systemctl restart v2ray.service
+    sudo systemctl restart v2ray.service
 elif [ $1 == "stop" ];then
-    systemctl stop v2ray.service
+    sudo systemctl stop v2ray.service
 elif [ $1 == "config" ];then
-    vim /etc/v2ray/config.json
-    systemctl restart v2ray.service
-# elif [ $1 == "proxy" ];then
+    sudo vim /etc/v2ray/config.json
+    sudo systemctl restart v2ray.service
+elif [ $1 == "upgrade" ];then
+    upgrade
 else
     help
 fi

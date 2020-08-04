@@ -18,10 +18,13 @@ alias xprop-quirk='xprop | grep -E "^(WM_CLASS|_NET_WM_NAME|WM_NAME)" | sed "s/,
 aur(){
     git clone https://aur.archlinux.org/$1.git
 }
+etym() {
+    w3m "https://www.etymonline.com/search?q=$1"
+}
 # alias vpn="$HOME/opt/proxychains-ng/proxychains4 -f $HOME/opt/proxychains-ng/src/proxychains.conf"
 vpn (){
-    v2ray=`systemctl status v2ray | awk '/Active:/ {print $2}'`
-    [ $v2ray = "inactive" ] && echo "V2ray is not active, starting v2ray......" && sudo v2ray start && sleep 1
+    v2ray=`systemctl status v2ray.service | awk '/Active:/ {print $2}'`
+    [ $v2ray = "inactive" ] && echo "V2ray is not active, starting v2ray......" && sudo systemctl start v2ray.service && sleep 1
     # use proxychain-ng to set proxy for v2ray
     $HOME/opt/proxychains-ng/proxychains4 -f $HOME/opt/proxychains-ng/src/proxychains.conf $*
 }

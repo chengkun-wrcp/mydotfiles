@@ -147,6 +147,7 @@ c.tabs.show = 'multiple'
 # statusbar hiddin
 c.statusbar.show = 'in-mode'
 c.fonts.default_size = '13pt'
+c.fonts.contextmenu = 'default_size sans-serif'
 c.zoom.default = '110%'
 c.completion.height = '60%'
 

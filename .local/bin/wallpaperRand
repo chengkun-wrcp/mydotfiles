@@ -8,5 +8,5 @@ lists=({$maindir/*/*.png,$maindir/*/*.jpg})
 # *(png|jpg),  match:   "","png","jpg","pngpng","pngjpg","jpgpng","jpgjpg",........
 # +(png|jpg),  match:   "png","jpg","pngpng","pngjpg","jpgpng","jpgjpg",........
 pic=${lists[RANDOM % ${#lists[@]}]}
-echo $pic
+echo $pic | tee ${XDG_CACHE_HOME:-$HOME/.cache}/wallpaperRand
 xwallpaper --zoom ${pic// /\\ } || xwallpaper --zoom $defaultbg

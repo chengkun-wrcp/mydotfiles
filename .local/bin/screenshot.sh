@@ -8,7 +8,7 @@ else
     id="root"
     subname="full"
 fi
-# import is from imagemagick
 dir="$HOME/Pictures/screenshots"
 time=$(timedatectl | awk '/Local/ {print $4,$5}' | sed 's/-//g;s/ /-/g')
+# import is owned by imagemagick
 import -window $id "$dir/screenshot-$subname-$time.png"
