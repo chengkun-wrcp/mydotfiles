@@ -17,13 +17,15 @@ bright() {
 
 ## VOLUME 墳 婢
 vol() {
-    vol=`amixer get Master | awk -F'[][]' 'END{ print $4" "$2 }' | sed 's/on/+@fn=2;墳+@fn=0;/;s/off/+@fn=2;婢+@fn=0;/'`
+    vol=`amixer get Master | awk -F'[][]' 'END{ print $4" "$2 }' | sed 's/on /+@fn=2;墳 +@fn=0;/;s/off /+@fn=2;婢 +@fn=0;/'`
+    # cat /proc/asound/card1/codec\#0 | grep Pin-ctl | sed -n 3p # check whether headphone is plugged
     b=`block $1 2 "$vol"`
     echo -e $b
 }
 
 ## CPU ⎚  +@fn=3;
-iconcpu="+@fn=2;+@fn=0;"
+# iconcpu="+@fn=2;+@fn=0;"
+iconcpu="+@fn=3;+@fn=0;"
 cpu() {
     read cpu a b c previdle rest < /proc/stat
     prevtotal=$((a+b+c+previdle))
@@ -71,24 +73,42 @@ power() {
 
 ## DISK
 hdd() {
-    root="$(df -h | awk 'NR==4{print $6":"$5}')"
-    home="$(df -h | awk 'NR==8{print $6":"$5}')"
+    root="$(df -h | awk '/sdb3/{print $6":"$5}')"
+    home="$(df -h | awk '/sdb4/{print $6":"$5}')"
     b=`block $1 1 "$root $home"`
     echo -e $b
 }
 
+USER=`whoami`
+usbcount=0
 others(){
-    USER=`whoami`
     android=`ls /run/user/1000/gvfs`
-    usb=`ls /run/media/$USER`
+    # usb=`ls /run/media/$USER`
+    usbnum=`ls -A /run/media/$USER | wc -l`
+    if [ $usbnum -eq 0 ];then
+        usbcount=0 
+        # echo 0
+        other='0'
+    else
+        usbcount=$(( usbcount % usbnum + 1 ))
+        usbname=`ls -A /run/media/$USER | sed -n "$usbcount p"`
+        usbAvailable=`df -h | grep "$usbname" | awk '{print $4}'`
+        # echo $usbname': '$usbAvailable' avail'
+        other=$usbname': '$usbAvailable' avail'
+    fi
+    # for usb in $usblist; do usbAvailable="$usbAvailable${usb##*/}:"`df -h | grep "$usb" | awk '{print $4}'`; done;
+    # echo usbAvailable
 }
 
-## NETWORK
+## NETWORK 直睊
+wifiname(){
+    iw dev | awk '/ssid/{print $2}'
+}
 SLEEP_SEC=2
 NET=wlp3s0
 downicon="+@fn=3; +@fn=0;"
 upicon="+@fn=3; +@fn=0;"
-net() {
+netspeed() {
     up_time1=`ifconfig $NET | awk '/TX packets/ {print $5}'`
     down_time1=`ifconfig $NET | awk '/RX packets/ {print $5}'`
     sleep $SLEEP_SEC
@@ -99,6 +119,8 @@ net() {
     up_time=$((up_time/1024/SLEEP_SEC))
     down_time=$((down_time/1024/SLEEP_SEC))
     netstatus=`block 2 0 "$upicon$up_time kb/s $downicon$down_time kb/s"`
+    # if network speed is zero, show wifiname
+    [ $up_time -lt 2 ] && [ $down_time -lt 2 ] && netstatus=`block 2 0 "+@fn=5;直 +@fn=0;$(wifiname)"`
     # check vpn is on  ☑ 
     v2ray=`systemctl status v2ray | awk '/Active:/ {print $2}'`
     [ $v2ray = "active" ] && netstatus=$netstatus"+@fg=5;+@fg=0;"
@@ -106,7 +128,10 @@ net() {
 }
 
 while :; do
-    echo "$network $(bright 3) $(vol 4) $(cpu 5) $(mem 6) $(power 7) $(hdd 8) +@fg=1;+@fn=2;+@bg=0;+@fg=7;+@fn=1;"
-    network=$(net)
+    others #global variables won't change if I assign the result of this function to a variable: other=$(others)
+    [ $other = 0 ] && files=$(hdd 8) || files=`block 2 5 "$other"`
+    # echo "$network $(bright 3) $(vol 4) $(cpu 5) $(mem 6) $(power 7) $(hdd 8) +@fg=1;+@fn=2;+@bg=0;+@fg=7;+@fn=1;"
+    echo "$network $(bright 3) $(vol 4) $(cpu 5) $(mem 6) $(power 7) $files +@fg=1;+@fn=2;+@bg=0;+@fg=7;+@fn=1;"
+    network=$(netspeed)
 done
 # 

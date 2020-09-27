@@ -1,21 +1,22 @@
 #!/bin/sh
 
-# input
+# INPUT
 setxkbmap -option caps:escape & # setxkbmap doesn't work in tty
 fcitx &
 
-# display stuff
+# DISPLAY STUFF
 xwallpaper --zoom $HOME/bg.png &
 compton &
+# xcompmgr &
 redshift &
 
-# automount usb
+# AUTOMOUNT USB
 udiskie &
 
-# natual scroll
+# NATUAL SCROLL
 touchpadid=`xinput | awk -F'=' '/Synaptics/ {print $2}' | awk '{print $1}'`
 natualscrollid=`xinput list-props $touchpadid | awk -F'[()]' '/Natural/ {print $2;exit;}'`
 xinput set-prop $touchpadid $natualscrollid 1
 
-# clipboard and primary
+# CLIPBOARD AND PRIMARY
 # autocutsel -selection PRIMARY &

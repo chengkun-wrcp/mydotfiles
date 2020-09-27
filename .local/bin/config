@@ -42,4 +42,4 @@ else
     filepath=${filepath/\~/$HOME}
 fi
 
-[ $OPENTERM == "TRUE" ] && myterm -e vim $filepath || vim $filepath
+[ $OPENTERM == "TRUE" ] && myterm -e vi $filepath || vi $filepath

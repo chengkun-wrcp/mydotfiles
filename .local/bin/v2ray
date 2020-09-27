@@ -19,11 +19,11 @@ upgrade() {
     # echo "./go.sh -p socks5://$listen:$port"
     proxy="socks5://$listen:$port"
     download=`mktemp -d`
-    echo "curl -L https://install.direct/go.sh"
+    echo '$ curl -L https://install.direct/go.sh'
     curl -L https://install.direct/go.sh --socks5 $proxy > $download/go.sh
-    echo "sudo bash go.sh"
+    echo '$ sudo bash go.sh'
     sudo bash $download/go.sh -p $proxy
-    echo "remove go.sh"
+    echo '$ rm go.sh'
     rm -r $download
 }
 

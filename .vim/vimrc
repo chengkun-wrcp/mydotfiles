@@ -308,7 +308,7 @@ let g:pydiction_location='~/.vim/bundle/pydiction/complete-dict'
 let g:pydiction_menu_height=10
 
 " starify{{{2
-let g:statify_session_autoload=1
+" let g:statify_session_autoload=1
 let g:startify_bookmarks=['~/.vim/vimrc']
 
 " mma{{{2
@@ -512,7 +512,7 @@ augroup terminal_buffer
     " the default filetype of terminal buffer is ''
     autocmd TerminalOpen *
                 \ if &buftype == 'terminal' |
-                \   setlocal nobuflisted    |
+                " \   setlocal nobuflisted    |
                 \   setlocal winfixheight   |
                 \ endif
 augroup END

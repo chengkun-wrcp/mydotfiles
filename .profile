@@ -20,5 +20,5 @@ export WWW_HOME="$XDG_DATA_HOME/w3m"
 export LESSHISTFILE="$XDG_CACHE_HOME/lesshist"
 
 # use vim for manual page
-export MANPAGER="/bin/sh -c \"col -b | vim --not-a-term -c 'setlocal ft=man ts=8 nonu nornu nomod nolist nobl noma ignorecase' -\""
+export MANPAGER="/bin/sh -c \"col -b | vi --not-a-term -c 'setlocal ft=man ts=8 nonu nornu nomod nolist nobl noma ignorecase' -\""
 export TERMINAL='st'

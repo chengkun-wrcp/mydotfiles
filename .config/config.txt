@@ -2,6 +2,7 @@
 
 # files that I often config
 config      ~/.config/config.txt
+compton     ~/.config/picom.conf
 alias       ~/.config/shell_aliases
 alacritty   ~/.config/alacritty/alacritty.yml
 st          ~/opt/st/config.h 

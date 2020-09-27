@@ -1,7 +1,9 @@
 #vim:ft=config
 # steps
-set scroll-step 20
+set scroll-step 40
 set zoom-step 2
+
+set page-padding 10
 
 # colors
 set default-bg                  "#222020"

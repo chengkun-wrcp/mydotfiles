@@ -11,7 +11,7 @@
 " If you would like to use another vi clone such as Elvis or Vile
 " you will need to change this setting.
 
-set vicmd=vim
+set vicmd=vi
 " set vicmd=elvis\ -G\ termcap
 " set vicmd=vile
 
@@ -497,6 +497,7 @@ set classify+=' ::*.avi,,*.ts,,*.axv,,*.divx,,*.m2v,,*.m4p,,*.m4v,,.mka,,*.mk
 set classify+=' ::*.doc,,*.docx::, ::*.xls,,*.xls[mx]::, ::*.pptx,,*.ppt::'
 
 
+" <space> in vifm is the default key to change windows"
 nnoremap <c-l> <c-w>l
 nnoremap <c-h> <c-w>h
 nnoremap <c-j> <c-w>j
